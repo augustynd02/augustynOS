@@ -1,6 +1,12 @@
+import Desktop from "./components/Desktop/Desktop"
+import Taskbar from "./components/Taskbar/Taskbar"
+
 function App() {
   return (
-    <h1>test</h1>
+    <>
+      <Desktop />
+      <Taskbar />
+    </>
   )
 }
 
