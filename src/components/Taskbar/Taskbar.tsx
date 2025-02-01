@@ -1,6 +1,8 @@
+import styles from './taskbar.module.scss'
+
 function Taskbar() {
     return (
-        <div data-testid="taskbar" id="taskbar">
+        <div data-testid="taskbar" id="taskbar" className={styles.taskbar}>
             <StartMenu />
             <div className="tabs" data-testid="tabs">
 

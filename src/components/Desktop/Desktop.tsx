@@ -1,6 +1,8 @@
+import styles from './desktop.module.scss'
+
 function Desktop() {
     return (
-        <div data-testid="desktop">
+        <div className={styles.desktop} data-testid="desktop" >
             <h1>Desktop</h1>
         </div>
     )
