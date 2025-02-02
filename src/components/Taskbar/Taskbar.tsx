@@ -1,4 +1,5 @@
 import styles from './taskbar.module.scss'
+import { TbPlant2 } from "react-icons/tb";
 
 function Taskbar() {
     return (
@@ -13,8 +14,10 @@ function Taskbar() {
 
 function StartMenu() {
     return (
-        <div data-testid="startmenu" id="startmenu">
-            <div className="icon"></div>
+        <div className={styles.startMenu} data-testid="startmenu" id="startmenu">
+            <div className={styles.logo}>
+                <TbPlant2 />
+            </div>
         </div>
     )
 }

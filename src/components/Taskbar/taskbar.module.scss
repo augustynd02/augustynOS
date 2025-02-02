@@ -1,4 +1,32 @@
+@use "../../styles/mixins" as globals;
+
 .taskbar {
     height: 50px;
-    background-color: var(--taskbar-color);
+
+    display: flex;
+
+    background-color: var(--color-taskbar);
+
+    .startMenu {
+        &:hover {
+            background-color: var(--color-taskbar-secondary);
+        }
+        &:hover .logo {
+            color: var(--color-primary);
+        }
+
+        .logo {
+            height: 100%;
+            aspect-ratio: 1/1;
+
+            @include globals.center;
+
+            color: white;
+
+            svg {
+                width: var(--size-icon-medium);
+                height: auto;
+            }
+        }
+    }
 }
