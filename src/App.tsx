@@ -2,7 +2,8 @@ import Desktop from "./components/Desktop/Desktop"
 import Taskbar from "./components/Taskbar/Taskbar"
 
 import styles from './app.module.scss'
-import './main.scss'
+import './styles/main.scss'
+import './styles/reset.scss'
 
 function App() {
   return (
