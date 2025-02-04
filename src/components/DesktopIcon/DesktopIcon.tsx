@@ -1,6 +1,5 @@
 import React from 'react';
 import styles from './desktopicon.module.scss';
-import { E } from 'vitest/dist/chunks/reporters.0x019-V2.js';
 
 interface DesktopIconProps {
     iconURL?: string;
