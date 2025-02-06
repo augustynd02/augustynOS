@@ -1,7 +1,7 @@
 import styles from './desktop.module.scss'
 import DesktopIcon from '../DesktopIcon/DesktopIcon'
 import { useContext } from 'react';
-import OpenAppsContext from '../../contexts/OpenAppsContext';
+import OpenAppsContext from '../../contexts/AppContext';
 import Window from '../Window/Window';
 
 function Desktop() {

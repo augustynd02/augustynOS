@@ -3,7 +3,7 @@ import { useState } from "react"
 import Desktop from "./components/Desktop/Desktop"
 import Taskbar from "./components/Taskbar/Taskbar"
 
-import OpenAppsContext from "./contexts/OpenAppsContext"
+import OpenAppsContext from "./contexts/AppContext"
 
 import { OpenApp } from "./interfaces/Application"
 
