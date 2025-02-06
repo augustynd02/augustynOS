@@ -5,7 +5,7 @@ import styles from './app.module.scss'
 import './styles/main.scss'
 import './styles/reset.scss'
 
-import AppProvider from './contexts/AppContext';
+import AppProvider from './contexts/AppProvider';
 
 function App() {
   return (
