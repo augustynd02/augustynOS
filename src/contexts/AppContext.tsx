@@ -1,5 +1,5 @@
 import React, { createContext, useState } from 'react';
-import { Application } from '../interfaces/Application';
+import { Application } from '../types/Application';
 
 type AppContextType = {
     openApps: Application[];
