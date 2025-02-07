@@ -5,7 +5,7 @@ import AppContext from '../../contexts/AppContext';
 import Window from '../Window/Window';
 
 function Desktop() {
-    const openApps = useContext(AppContext);
+    const { openApps, startApp, closeApp } = useContext(AppContext);
 
     const handleDragOver = (e: React.DragEvent) => {
         e.preventDefault();

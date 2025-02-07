@@ -7,6 +7,12 @@ type AppContextType = {
     closeApp: (app: Application) => void;
 }
 
-const AppContext = createContext<AppContextType | undefined>(undefined);
+const defaultContext: AppContextType = {
+    openApps: [],
+    startApp: () => { throw new Error("startApp called outside of AppContext.Provider"); },
+    closeApp: () => { throw new Error("closeApp called outside of AppContext.Provider"); }
+};
+
+const AppContext = createContext<AppContextType>(defaultContext);
 
 export default AppContext;
