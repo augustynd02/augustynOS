@@ -1,12 +1,9 @@
 import styles from './window.module.scss';
+import { Application } from '../../types/Application';
 
-interface WindowProps {
-    name: string
-}
-
-function Window({ name }: WindowProps) {
+function Window({ id, name, type }: Application) {
     return (
-        <div className={styles.window}>
+        <div id={id} className={styles.window}>
             <div className={styles.bar}>
                 {name}
             </div>

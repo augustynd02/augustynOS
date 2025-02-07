@@ -5,7 +5,7 @@ import AppContext from '../../contexts/AppContext';
 import Window from '../Window/Window';
 
 function Desktop() {
-    const { openApps, startApp, closeApp } = useContext(AppContext);
+    const { openApps } = useContext(AppContext);
 
     const handleDragOver = (e: React.DragEvent) => {
         e.preventDefault();
@@ -13,9 +13,13 @@ function Desktop() {
 
     return (
         <div className={styles.desktop} data-testid="desktop" onDragOver={handleDragOver}>
-            <DesktopIcon name="Test" />
-            <DesktopIcon iconURL="https://cdn.iconscout.com/icon/free/png-256/free-email-icon-download-in-svg-png-gif-file-formats--envenlope-letter-mail-user-interface-pack-icons-83578.png" name="Very long iconname is it gdassssssssssssssssonna breddddddddddddddddddddddddddddddddddddak" />
-            <DesktopIcon name="Very long iconname is it gonna break" />
+            <DesktopIcon name="Test" type="test" />
+            <DesktopIcon iconURL="https://cdn.iconscout.com/icon/free/png-256/free-email-icon-download-in-svg-png-gif-file-formats--envenlope-letter-mail-user-interface-pack-icons-83578.png" name="Very long iconname is it gdassssssssssssssssonna breddddddddddddddddddddddddddddddddddddak" type="test"/>
+            {
+                openApps.map(app => {
+                    return <Window key={app.id} id={app.id} name={app.name} type={app.type} />
+                })
+            }
         </div>
     )
 }
