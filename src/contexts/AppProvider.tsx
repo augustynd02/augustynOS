@@ -5,7 +5,7 @@ import { useState } from 'react';
 export default function AppProvider({ children }: { children: React.ReactNode }) {
     const [openApps, setOpenApps] = useState<Application[]>([]);
 
-    const openApp = (app: Application) => {
+    const startApp = (app: Application) => {
         setOpenApps(prev => [...prev, app]);
     }
 
@@ -14,7 +14,7 @@ export default function AppProvider({ children }: { children: React.ReactNode })
     }
 
     return (
-        <AppContext.Provider value={{openApps, openApp, closeApp}}>
+        <AppContext.Provider value={{openApps, startApp, closeApp}}>
             { children }
         </AppContext.Provider>
     )

@@ -3,7 +3,7 @@ import { Application } from '../types/Application';
 
 type AppContextType = {
     openApps: Application[];
-    openApp: (app: Application) => void;
+    startApp: (app: Application) => void;
     closeApp: (app: Application) => void;
 }
 
