@@ -1,0 +1,30 @@
+.window {
+    position: absolute;
+    background-color: var(--color-secondary);
+}
+
+.bar {
+    height: 30px;
+
+    display: flex;
+    align-items: center;
+
+    background-color: var(--color-primary);
+    color: var(--color-text);
+
+    user-select: none;
+}
+
+.actions {
+    height: 100%;
+    margin-left: auto;
+
+    display: flex;
+    align-items: center;
+
+    button {
+        margin: 0 var(--spacing-medium);
+        color: var(--color-text);
+    }
+}
+
