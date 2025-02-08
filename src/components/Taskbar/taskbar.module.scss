@@ -5,14 +5,14 @@
 
     display: flex;
 
-    background-color: var(--color-taskbar);
+    background-color: var(--color-primary);
 
     .startMenu {
         &:hover {
-            background-color: var(--color-taskbar-secondary);
+            background-color: var(--color-secondary);
         }
         &:hover .logo {
-            color: var(--color-primary);
+            color: var(--color-accent);
         }
 
         .logo {
