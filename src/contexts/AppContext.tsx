@@ -4,7 +4,7 @@ import { Application } from '../types/Application';
 type AppContextType = {
     openApps: Application[];
     startApp: (app: Application) => void;
-    closeApp: (app: Application) => void;
+    closeApp: (id: string) => void;
 }
 
 const defaultContext: AppContextType = {

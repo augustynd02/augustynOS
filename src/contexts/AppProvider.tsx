@@ -9,8 +9,8 @@ export default function AppProvider({ children }: { children: React.ReactNode })
         setOpenApps(prev => [...prev, app]);
     }
 
-    const closeApp = (app: Application) => {
-        setOpenApps(prev => prev.filter(openApp => openApp.id !== app.id));
+    const closeApp = (id: string) => {
+        setOpenApps(prev => prev.filter(openApp => openApp.id !== id));
     }
 
     return (
