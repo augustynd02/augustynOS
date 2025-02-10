@@ -4,8 +4,11 @@
 
 :root {
     --color-primary: rgb(5, 5, 5);
-    --color-secondary: rgb(37, 37, 37);
+    --color-secondary: rgb(32, 32, 32);
+    --color-secondary-action: rgb(45, 45, 45);
     --color-accent: rgb(148, 87, 192);
+    --color-error: rgb(180, 48, 48);
+    --color-error-action: rgb(148, 26, 26);
     --color-text: rgb(231, 231, 231);
     --color-icon-hover: rgba(201, 201, 240, 0.3);
     --color-icon-focus: rgba(142, 142, 202, 0.3);
