@@ -57,13 +57,13 @@ function Window({ id, name, type }: Application) {
     }, [isDragging, handleDrag]);
 
     return (
-        <div id={id} className={styles.window} style={{width: `${dimensions.width}px`, height: `${dimensions.height}px`, transform: `translate(${position.x}px, ${position.y}px)`}}>
+        <div id={id} data-testid="window" className={styles.window} style={{width: `${dimensions.width}px`, height: `${dimensions.height}px`, transform: `translate(${position.x}px, ${position.y}px)`}}>
             <div className={styles.bar} onMouseDown={handleDragStart} onMouseUp={handleDragEnd}>
                 <p>{name}</p>
                 <div className={styles.actions}>
                     <button> <VscChromeMinimize /> </button>
                     <button> <VscChromeMaximize /> </button>
-                    <button onClick={handleClose} className={styles.close}> <VscChromeClose /> </button>
+                    <button onClick={handleClose} className={styles.close} data-testid="close"> <VscChromeClose /> </button>
                 </div>
             </div>
             <div className={styles.content}>
