@@ -1,10 +1,10 @@
 import styles from './desktop.module.scss'
 import DesktopIcon from '../DesktopIcon/DesktopIcon'
-import { useContext } from 'react';
+import React, { useContext } from 'react';
 import AppContext from '../../contexts/AppContext';
 import Window from '../Window/Window';
 
-function Desktop() {
+function Desktop({ children }: { children?: React.ReactNode}) {
     const { openApps } = useContext(AppContext);
 
     const handleDragOver = (e: React.DragEvent) => {
@@ -20,6 +20,7 @@ function Desktop() {
                     return <Window key={app.id} id={app.id} name={app.name} type={app.type} />
                 })
             }
+            {children}
         </div>
     )
 }

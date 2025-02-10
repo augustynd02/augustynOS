@@ -51,3 +51,8 @@
     }
 }
 
+.maximized {
+    width: 100% !important;
+    height: calc(100% - 50px) !important;
+}
+

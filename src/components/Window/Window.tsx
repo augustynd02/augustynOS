@@ -3,43 +3,63 @@ import { Application } from '../../types/Application';
 import React, { useEffect, useState, useCallback, useContext } from 'react';
 import AppContext from '../../contexts/AppContext';
 
-import { VscChromeMinimize, VscChromeMaximize, VscChromeRestore, VscChromeClose } from "react-icons/vsc";
+import {
+    VscChromeMinimize,
+    VscChromeMaximize,
+    VscChromeRestore,
+    VscChromeClose
+} from "react-icons/vsc";
 
 type Position = {
     x: number;
     y: number;
-}
+};
 
 function Window({ id, name, type }: Application) {
-    const [dimensions, setDimensions] = useState({ width: 700, height: 700})
-    const [initialPosition, setInitialPosition] = useState<Position>({x: 0, y: 0})
-    const [position, setPosition] = useState<Position>({x: 0, y: 0})
+    const [dimensions, setDimensions] = useState({ width: 700, height: 700 });
+    const [initialPosition, setInitialPosition] = useState<Position>({ x: 0, y: 0 });
+    const [position, setPosition] = useState<Position>({ x: 0, y: 0 });
     const [isDragging, setIsDragging] = useState(false);
+    const [isMaximized, setIsMaximized] = useState(false);
 
     const { closeApp } = useContext(AppContext);
-    // Calculates how to position the window based on where the cursor is placed during the start of dragging
+
     const handleDragStart = (e: React.MouseEvent) => {
         if ((e.target as HTMLElement).closest('button')) return;
         setIsDragging(true);
-        setInitialPosition({ x: e.clientX - position.x, y: e.clientY - position.y });
-    }
-
-    const handleDrag = useCallback((e: MouseEvent) => {
-        e.preventDefault();
-        setPosition({
-            x: e.clientX - initialPosition.x,
-            y: e.clientY - initialPosition.y
+        setInitialPosition({
+            x: e.clientX - position.x,
+            y: e.clientY - position.y
         });
-    }, [initialPosition]);
+    };
+
+    const handleDrag = useCallback(
+        (e: MouseEvent) => {
+            e.preventDefault();
+            setPosition({
+                x: e.clientX - initialPosition.x,
+                y: e.clientY - initialPosition.y
+            });
+        },
+        [initialPosition]
+    );
 
     const handleDragEnd = () => {
         setIsDragging(false);
-    }
+    };
+
+    const handleMaximize = () => {
+        setIsMaximized(!isMaximized);
+        setPosition({
+            x: 0,
+            y: 0
+        })
+    };
 
     const handleClose = (e: React.MouseEvent) => {
         e.stopPropagation();
         closeApp(id);
-    }
+    };
 
     useEffect(() => {
         if (isDragging) {
@@ -57,20 +77,33 @@ function Window({ id, name, type }: Application) {
     }, [isDragging, handleDrag]);
 
     return (
-        <div id={id} data-testid="window" className={styles.window} style={{width: `${dimensions.width}px`, height: `${dimensions.height}px`, transform: `translate(${position.x}px, ${position.y}px)`}}>
+        <div
+            id={id}
+            data-testid="window"
+            className={`${styles.window} ${isMaximized ? styles.maximized : ""}`}
+            style={{
+                width: `${dimensions.width}px`,
+                height: `${dimensions.height}px`,
+                transform: `translate(${position.x}px, ${position.y}px)`
+            }}
+        >
             <div className={styles.bar} onMouseDown={handleDragStart} onMouseUp={handleDragEnd}>
                 <p>{name}</p>
                 <div className={styles.actions}>
-                    <button> <VscChromeMinimize /> </button>
-                    <button> <VscChromeMaximize /> </button>
-                    <button onClick={handleClose} className={styles.close} data-testid="close"> <VscChromeClose /> </button>
+                    <button>
+                        <VscChromeMinimize />
+                    </button>
+                    <button onClick={handleMaximize}>
+                        {isMaximized ? <VscChromeRestore /> : <VscChromeMaximize />}
+                    </button>
+                    <button onClick={handleClose} className={styles.close} data-testid="close">
+                        <VscChromeClose />
+                    </button>
                 </div>
             </div>
-            <div className={styles.content}>
-
-            </div>
+            <div className={styles.content}></div>
         </div>
-    )
+    );
 }
 
 export default Window;
