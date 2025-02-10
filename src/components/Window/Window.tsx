@@ -1,6 +1,6 @@
 import styles from './window.module.scss';
 import { Application } from '../../types/Application';
-import React, { useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 
 import { VscChromeMinimize, VscChromeMaximize, VscChromeRestore, VscChromeClose } from "react-icons/vsc";
 
@@ -17,29 +17,45 @@ function Window({ id, name, type }: Application) {
 
     // Calculates how to position the window based on where the cursor is placed during the start of dragging
     const handleDragStart = (e: React.MouseEvent) => {
+        if ((e.target as HTMLElement).closest('button')) return;
         setIsDragging(true);
         setInitialPosition({ x: e.clientX - position.x, y: e.clientY - position.y });
     }
 
-    const handleDrag = (e: React.MouseEvent) => {
+    const handleDrag = useCallback((e: MouseEvent) => {
         e.preventDefault();
-        if (isDragging) {
-            setPosition({x: e.clientX - initialPosition.x, y: e.clientY - initialPosition.y});
-        }
-    }
+        setPosition({
+            x: e.clientX - initialPosition.x,
+            y: e.clientY - initialPosition.y
+        });
+    }, [initialPosition]);
 
     const handleDragEnd = () => {
         setIsDragging(false);
     }
 
-    const handleClose = (e: React.MouseEvent) => {
-        console.log()
+    const handleClose = useCallback((e: React.MouseEvent) => {
         e.stopPropagation();
-    }
+    }, [])
+
+    useEffect(() => {
+        if (isDragging) {
+            document.addEventListener('mousemove', handleDrag);
+            document.addEventListener('mouseup', handleDragEnd);
+        } else {
+            document.removeEventListener('mousemove', handleDrag);
+            document.removeEventListener('mouseup', handleDragEnd);
+        }
+
+        return () => {
+            document.removeEventListener('mousemove', handleDrag);
+            document.removeEventListener('mouseup', handleDragEnd);
+        };
+    }, [isDragging, handleDrag]);
 
     return (
         <div id={id} className={styles.window} style={{width: `${dimensions.width}px`, height: `${dimensions.height}px`, transform: `translate(${position.x}px, ${position.y}px)`}}>
-            <div className={styles.bar} onMouseDown={handleDragStart} onMouseMove={handleDrag} onMouseUp={handleDragEnd} >
+            <div className={styles.bar} onMouseDown={handleDragStart} onMouseUp={handleDragEnd}>
                 <p>{name}</p>
                 <div className={styles.actions}>
                     <button> <VscChromeMinimize /> </button>
