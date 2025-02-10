@@ -1,6 +1,7 @@
 import styles from './window.module.scss';
 import { Application } from '../../types/Application';
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useState, useCallback, useContext } from 'react';
+import AppContext from '../../contexts/AppContext';
 
 import { VscChromeMinimize, VscChromeMaximize, VscChromeRestore, VscChromeClose } from "react-icons/vsc";
 
@@ -15,6 +16,7 @@ function Window({ id, name, type }: Application) {
     const [position, setPosition] = useState<Position>({x: 0, y: 0})
     const [isDragging, setIsDragging] = useState(false);
 
+    const { closeApp } = useContext(AppContext);
     // Calculates how to position the window based on where the cursor is placed during the start of dragging
     const handleDragStart = (e: React.MouseEvent) => {
         if ((e.target as HTMLElement).closest('button')) return;
@@ -34,9 +36,10 @@ function Window({ id, name, type }: Application) {
         setIsDragging(false);
     }
 
-    const handleClose = useCallback((e: React.MouseEvent) => {
+    const handleClose = (e: React.MouseEvent) => {
         e.stopPropagation();
-    }, [])
+        closeApp(id);
+    }
 
     useEffect(() => {
         if (isDragging) {
@@ -60,7 +63,7 @@ function Window({ id, name, type }: Application) {
                 <div className={styles.actions}>
                     <button> <VscChromeMinimize /> </button>
                     <button> <VscChromeMaximize /> </button>
-                    <button onClick={handleClose}> <VscChromeClose /> </button>
+                    <button onClick={handleClose} className={styles.close}> <VscChromeClose /> </button>
                 </div>
             </div>
             <div className={styles.content}>
