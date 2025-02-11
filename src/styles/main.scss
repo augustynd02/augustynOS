@@ -21,9 +21,12 @@
     --spacing-medium: 1rem;
     --spacing-large: 2rem;
 
-    --size-icon-small: 1rem;
+    --size-icon-tiny: 1rem;
+    --size-icon-small: 1.5rem;
     --size-icon-medium: 2rem;
     --size-icon-large: 3rem;
+
+    --taskbar-height: 40px;
 }
 
 body {
@@ -34,4 +37,5 @@ body {
     overflow: hidden;
 
     font-family: var(--font-ui);
+    font-size: 12px;
 }
