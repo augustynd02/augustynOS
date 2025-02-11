@@ -90,7 +90,12 @@ function Window({ id, name, type, iconURL }: Application) {
             }}
         >
             <div className={styles.bar} onMouseDown={handleDragStart} onMouseUp={handleDragEnd}>
-                <p>{name}</p>
+                <figure>
+                    <img src={iconURL} alt="" />
+                    <figcaption>
+                        {name}
+                    </figcaption>
+                </figure>
                 <div className={styles.actions}>
                     <button>
                         <VscChromeMinimize />

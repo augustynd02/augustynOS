@@ -14,10 +14,10 @@ function Desktop({ children }: { children?: React.ReactNode}) {
     return (
         <div className={styles.desktop} data-testid="desktop" onDragOver={handleDragOver}>
             <DesktopIcon name="Test" type="test" />
-            <DesktopIcon iconURL="https://cdn.iconscout.com/icon/free/png-256/free-email-icon-download-in-svg-png-gif-file-formats--envenlope-letter-mail-user-interface-pack-icons-83578.png" name="Very long iconname is it gdassssssssssssssssonna breddddddddddddddddddddddddddddddddddddak" type="test"/>
+            <DesktopIcon iconURL="https://cdn.iconscout.com/icon/free/png-256/free-email-icon-download-in-svg-png-gif-file-formats--envenlope-letter-mail-user-interface-pack-icons-83578.png" name="Example app" type="test"/>
             {
                 openApps.map(app => {
-                    return <Window key={app.id} id={app.id} name={app.name} type={app.type} />
+                    return <Window key={app.id} id={app.id} name={app.name} type={app.type} iconURL={app.iconURL} />
                 })
             }
             {children}

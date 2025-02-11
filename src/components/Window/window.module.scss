@@ -19,6 +19,16 @@
     color: var(--color-text);
 
     user-select: none;
+
+    figure {
+        display: flex;
+        align-items: center;
+        gap: var(--spacing-small);
+        margin: 0 var(--spacing-small);
+        img {
+            width: var(--size-icon-small);
+        }
+    }
 }
 
 .actions {
