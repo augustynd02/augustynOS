@@ -35,13 +35,15 @@ function Window({ id, name, type }: Application) {
 
     const handleDrag = useCallback(
         (e: MouseEvent) => {
+            // TODO: snap the window to the middle of the cursor when restoring a maximized window during a drag
+            if (isMaximized) setIsMaximized(false);
             e.preventDefault();
             setPosition({
                 x: e.clientX - initialPosition.x,
                 y: e.clientY - initialPosition.y
             });
         },
-        [initialPosition]
+        [initialPosition, isMaximized]
     );
 
     const handleDragEnd = () => {
