@@ -15,7 +15,7 @@ type Position = {
     y: number;
 };
 
-function Window({ id, name, type }: Application) {
+function Window({ id, name, type, iconURL }: Application) {
     const [dimensions, setDimensions] = useState({ width: 700, height: 700 });
     const [initialPosition, setInitialPosition] = useState<Position>({ x: 0, y: 0 });
     const [position, setPosition] = useState<Position>({ x: 0, y: 0 });

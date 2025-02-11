@@ -19,7 +19,8 @@ function DesktopIcon({
         const app: Application = {
             id: Date.now().toString(),
             name: name,
-            type: type
+            type: type,
+            iconURL: iconURL
         }
         startApp(app);
     }
