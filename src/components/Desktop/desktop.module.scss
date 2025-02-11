@@ -1,12 +1,12 @@
 .desktop {
     flex: 1;
-    height: calc(100vh - 50px);
+    height: calc(100vh - var(--taskbar-height));
 
     display: grid;
     grid-template-columns: repeat(auto-fill, 80px);
     grid-template-rows: repeat(auto-fill, 80px);
     gap: var(--spacing-medium) 1px;
 
-    background-image: url(../../assets/images/wallpaper.jpg);
+    background-image: url(../../assets/images/wallpaper.png);
     background-size: cover;
 }
