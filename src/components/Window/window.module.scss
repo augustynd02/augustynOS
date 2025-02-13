@@ -72,3 +72,6 @@
     height: calc(100% - var(--taskbar-height)) !important;
 }
 
+.minimized {
+    visibility: hidden;
+}

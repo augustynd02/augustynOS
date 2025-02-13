@@ -21,6 +21,7 @@ function Window({ id, name, type, iconURL }: Application) {
     const [position, setPosition] = useState<Position>({ x: 0, y: 0 });
     const [isDragging, setIsDragging] = useState(false);
     const [isMaximized, setIsMaximized] = useState(false);
+    const [isMinimized, setIsMinimized] = useState(false);
 
     const { closeApp } = useContext(AppContext);
 
@@ -58,6 +59,10 @@ function Window({ id, name, type, iconURL }: Application) {
         })
     };
 
+    const handleMinimize = () => {
+        setIsMinimized(!isMinimized);
+    }
+
     const handleClose = (e: React.MouseEvent) => {
         e.stopPropagation();
         closeApp(id);
@@ -82,7 +87,7 @@ function Window({ id, name, type, iconURL }: Application) {
         <div
             id={id}
             data-testid="window"
-            className={`${styles.window} ${isMaximized ? styles.maximized : ""}`}
+            className={`${styles.window} ${isMaximized ? styles.maximized : ""} ${isMinimized ? styles.minimized : ""}`}
             style={{
                 width: `${dimensions.width}px`,
                 height: `${dimensions.height}px`,
@@ -98,7 +103,7 @@ function Window({ id, name, type, iconURL }: Application) {
                 </figure>
                 <div className={styles.actions}>
                     <button>
-                        <VscChromeMinimize />
+                        <VscChromeMinimize onClick={handleMinimize} />
                     </button>
                     <button onClick={handleMaximize}>
                         {isMaximized ? <VscChromeRestore /> : <VscChromeMaximize />}
