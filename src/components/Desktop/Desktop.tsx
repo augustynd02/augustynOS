@@ -3,9 +3,9 @@ import DesktopIcon from '../DesktopIcon/DesktopIcon'
 import React, { useContext } from 'react';
 import AppContext from '../../contexts/AppContext';
 import Window from '../Window/Window';
-import { Application } from '../../types/Application';
+import { Icon } from '../../types/Icon';
 
-function Desktop({ icons }: { icons: Application[] }) {
+function Desktop({ icons }: { icons: Icon[] }) {
     const { openApps } = useContext(AppContext);
 
     const handleDragOver = (e: React.DragEvent) => {
