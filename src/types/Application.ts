@@ -3,4 +3,5 @@ export type Application = {
     name: string;
     type: string;
     iconURL?: string;
+    isMinimized: boolean;
 }

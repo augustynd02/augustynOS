@@ -15,7 +15,7 @@ type Position = {
     y: number;
 };
 
-function Window({ id, name, type, iconURL }: Application) {
+function Window({ app }: { app: Application }) {
     const [dimensions, setDimensions] = useState({ width: 700, height: 700 });
     const [initialPosition, setInitialPosition] = useState<Position>({ x: 0, y: 0 });
     const [position, setPosition] = useState<Position>({ x: 0, y: 0 });
@@ -65,7 +65,7 @@ function Window({ id, name, type, iconURL }: Application) {
 
     const handleClose = (e: React.MouseEvent) => {
         e.stopPropagation();
-        closeApp(id);
+        closeApp(app.id);
     };
 
     useEffect(() => {
@@ -85,7 +85,7 @@ function Window({ id, name, type, iconURL }: Application) {
 
     return (
         <div
-            id={id}
+            id={app.id}
             data-testid="window"
             className={`${styles.window} ${isMaximized ? styles.maximized : ""} ${isMinimized ? styles.minimized : ""}`}
             style={{
@@ -96,9 +96,9 @@ function Window({ id, name, type, iconURL }: Application) {
         >
             <div className={styles.bar} onMouseDown={handleDragStart} onMouseUp={handleDragEnd}>
                 <figure>
-                    <img src={iconURL} alt="" />
+                    <img src={app.iconURL} alt="" />
                     <figcaption>
-                        {name}
+                        {app.name}
                     </figcaption>
                 </figure>
                 <div className={styles.actions}>

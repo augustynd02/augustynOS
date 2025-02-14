@@ -15,13 +15,13 @@ function Desktop({ icons }: { icons: Icon[] }) {
     return (
         <div className={styles.desktop} data-testid="desktop" onDragOver={handleDragOver}>
             {
-                icons.map(app => {
-                    return <DesktopIcon name={app.name} type={app.type} />
+                icons.map(icon => {
+                    return <DesktopIcon key={icon.id} icon={icon} />
                 })
             }
             {
                 openApps.map(app => {
-                    return <Window key={app.id} id={app.id} name={app.name} type={app.type} iconURL={app.iconURL} />
+                    return <Window key={app.id} app={app} />
                 })
             }
         </div>

@@ -4,18 +4,15 @@ import AppContext from '../../contexts/AppContext';
 import { Application } from '../../types/Application';
 import { Icon } from '../../types/Icon';
 
-function DesktopIcon({
-    iconURL = "https://static.wixstatic.com/media/4da7cd_dc99fe81c55f42ccb196238660d25e73~mv2.jpg/v1/fill/w_256,h_256,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/placeholder.jpg",
-    name,
-    type
-}: Icon) {
+function DesktopIcon({ icon }: { icon: Icon }) {
     const { startApp } = useContext(AppContext);
     const handleDoubleClick = () => {
         const app: Application = {
-            id: Date.now().toString(),
-            name: name,
-            type: type,
-            iconURL: iconURL
+            id: icon.id,
+            name: icon.name,
+            type: icon.type,
+            iconURL: icon.iconURL,
+            isMinimized: false
         }
         startApp(app);
     }
@@ -36,9 +33,9 @@ function DesktopIcon({
         <li className={styles.desktopIcon} draggable="true" onDoubleClick={handleDoubleClick} onDragEnd={handleDragEnd} data-testid="desktopicon">
             <button role="button">
                 <figure>
-                    <img src={iconURL} alt={`${name} icon`} className={styles.icon} draggable="false" />
+                    <img src={icon.iconURL} alt={`${icon.name} icon`} className={styles.icon} draggable="false" />
                     <figcaption className={styles.name}>
-                        {name}
+                        {icon.name}
                     </figcaption>
                 </figure>
             </button>

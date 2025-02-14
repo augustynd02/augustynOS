@@ -1,16 +1,12 @@
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import Desktop from "../Desktop/Desktop";
-import DesktopIcon from "../DesktopIcon/DesktopIcon";
 import AppProvider from "../../contexts/AppProvider";
-import { Application } from "../../types/Application";
+import { Icon } from "../../types/Icon";
+import createApp from "../../utils/createApp";
 
 describe("Window", () => {
-    const icons:Application[] = [
-        {
-            id: Date.now().toString(),
-            name: "Test",
-            type: "test",
-        }
+    const icons:Icon[] = [
+        createApp("test", "test")
     ];
 
     it("renders upon a desktop icon being double-clicked", async () => {

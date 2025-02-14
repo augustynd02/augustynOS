@@ -7,16 +7,12 @@ import './styles/reset.scss'
 
 import AppProvider from './contexts/AppProvider';
 import { useState } from "react"
-import { Application } from './types/Application';
+import { Icon } from "./types/Icon"
+import createIcon from "./utils/createIcon"
 
 function App() {
-  const [icons, setIcons] = useState<Application[]>([
-    {
-      id: Date.now().toString(),
-      name: "Test",
-      type: "Test",
-      iconURL: 'https://cdn.iconscout.com/icon/free/png-256/free-email-icon-download-in-svg-png-gif-file-formats--envenlope-letter-mail-user-interface-pack-icons-83578.png'
-    }
+  const [icons, setIcons] = useState<Icon[]>([
+    createIcon("Test", "test")
   ]);
   return (
     <AppProvider>

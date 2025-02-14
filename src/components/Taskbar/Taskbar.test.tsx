@@ -1,17 +1,13 @@
 import { fireEvent, render, screen } from '@testing-library/react';
 import Taskbar from './Taskbar';
 import Desktop from "../Desktop/Desktop";
-import DesktopIcon from "../DesktopIcon/DesktopIcon";
 import AppProvider from "../../contexts/AppProvider";
-import { Application } from '../../types/Application';
+import { Icon } from '../../types/Icon';
+import createIcon from '../../utils/createIcon';
 
 describe('Taskbar', () => {
-    const icons:Application[] = [
-        {
-            id: Date.now().toString(),
-            name: "Test",
-            type: "test",
-        }
+    const icons:Icon[] = [
+       createIcon("test", "test")
     ];
     it("renders tabs from open apps", () => {
         render(

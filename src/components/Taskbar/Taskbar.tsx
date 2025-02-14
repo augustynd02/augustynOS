@@ -12,7 +12,7 @@ function Taskbar() {
             <StartMenu />
             <div className={styles.tabs} data-testid="tabs">
                 { openApps.map(app => {
-                    return <Tab app={app} />
+                    return <Tab key={app.id} app={app} />
                 })}
             </div>
         </div>
