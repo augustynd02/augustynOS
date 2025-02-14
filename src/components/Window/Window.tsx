@@ -21,9 +21,8 @@ function Window({ app }: { app: Application }) {
     const [position, setPosition] = useState<Position>({ x: 0, y: 0 });
     const [isDragging, setIsDragging] = useState(false);
     const [isMaximized, setIsMaximized] = useState(false);
-    const [isMinimized, setIsMinimized] = useState(false);
 
-    const { closeApp } = useContext(AppContext);
+    const { closeApp, toggleMinimize } = useContext(AppContext);
 
     const handleDragStart = (e: React.MouseEvent) => {
         if ((e.target as HTMLElement).closest('button')) return;
@@ -60,7 +59,7 @@ function Window({ app }: { app: Application }) {
     };
 
     const handleMinimize = () => {
-        setIsMinimized(!isMinimized);
+        toggleMinimize(app.id);
     }
 
     const handleClose = (e: React.MouseEvent) => {
@@ -87,7 +86,7 @@ function Window({ app }: { app: Application }) {
         <div
             id={app.id}
             data-testid="window"
-            className={`${styles.window} ${isMaximized ? styles.maximized : ""} ${isMinimized ? styles.minimized : ""}`}
+            className={`${styles.window} ${isMaximized ? styles.maximized : ""} ${app.isMinimized ? styles.minimized : ""}`}
             style={{
                 width: `${dimensions.width}px`,
                 height: `${dimensions.height}px`,

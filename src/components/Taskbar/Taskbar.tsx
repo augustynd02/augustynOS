@@ -5,23 +5,26 @@ import { TbPlant2 } from "react-icons/tb";
 import { Application } from '../../types/Application';
 
 function Taskbar() {
-    const { openApps } = useContext(AppContext);
+    const { openApps, toggleMinimize } = useContext(AppContext);
 
     return (
         <div data-testid="taskbar" id="taskbar" className={styles.taskbar}>
             <StartMenu />
             <div className={styles.tabs} data-testid="tabs">
                 { openApps.map(app => {
-                    return <Tab key={app.id} app={app} />
+                    return <Tab key={app.id} app={app} toggleMinimize={toggleMinimize} />
                 })}
             </div>
         </div>
     )
 }
 
-function Tab({ app }: { app: Application }) {
+function Tab({ app, toggleMinimize }: { app: Application, toggleMinimize: (id: string) => void }) {
+    const handleClick = () => {
+        toggleMinimize(app.id);
+    }
     return (
-        <button key={app.id} className={styles.tab}>
+        <button key={app.id} className={styles.tab} onClick={handleClick}>
             <figure>
                 <picture>
                     <img src={app.iconURL} />

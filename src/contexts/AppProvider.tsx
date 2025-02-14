@@ -13,8 +13,14 @@ export default function AppProvider({ children }: { children: React.ReactNode })
         setOpenApps(prev => prev.filter(openApp => openApp.id !== id));
     }
 
+    const toggleMinimize = (id: string) => {
+        setOpenApps(prev => prev.map(app =>
+            app.id === id ? {...app, isMinimized: !app.isMinimized } : app
+        ))
+    }
+
     return (
-        <AppContext.Provider value={{openApps, startApp, closeApp}}>
+        <AppContext.Provider value={{openApps, startApp, closeApp, toggleMinimize}}>
             { children }
         </AppContext.Provider>
     )
