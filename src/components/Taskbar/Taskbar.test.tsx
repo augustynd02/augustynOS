@@ -3,14 +3,20 @@ import Taskbar from './Taskbar';
 import Desktop from "../Desktop/Desktop";
 import DesktopIcon from "../DesktopIcon/DesktopIcon";
 import AppProvider from "../../contexts/AppProvider";
+import { Application } from '../../types/Application';
 
 describe('Taskbar', () => {
+    const icons:Application[] = [
+        {
+            id: Date.now().toString(),
+            name: "Test",
+            type: "test",
+        }
+    ];
     it("renders tabs from open apps", () => {
         render(
             <AppProvider>
-                <Desktop>
-                    <DesktopIcon name="Test" type="test"/>
-                </Desktop>
+                <Desktop icons={icons} />
                 <Taskbar />
             </AppProvider>
         );

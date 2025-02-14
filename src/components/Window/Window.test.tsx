@@ -2,14 +2,21 @@ import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import Desktop from "../Desktop/Desktop";
 import DesktopIcon from "../DesktopIcon/DesktopIcon";
 import AppProvider from "../../contexts/AppProvider";
+import { Application } from "../../types/Application";
 
 describe("Window", () => {
+    const icons:Application[] = [
+        {
+            id: Date.now().toString(),
+            name: "Test",
+            type: "test",
+        }
+    ];
+
     it("renders upon a desktop icon being double-clicked", async () => {
         render(
             <AppProvider>
-                <Desktop>
-                    <DesktopIcon name="Test" type="test"/>
-                </Desktop>
+                <Desktop icons={icons} />
             </AppProvider>
         );
         const desktopIcon = screen.getByTestId('desktopicon');
@@ -21,9 +28,7 @@ describe("Window", () => {
     it("closes upon close button being clicked", async () => {
         render(
             <AppProvider>
-                <Desktop>
-                    <DesktopIcon name="Test" type="test"/>
-                </Desktop>
+               <Desktop icons={icons} />
             </AppProvider>
         );
 

@@ -4,9 +4,10 @@ import DesktopIcon from "./DesktopIcon";
 describe("DesktopIcon", () => {
     const name = "Test app";
     const iconURL = "https://example.com/icon.png";
+    const type = "test";
 
     it("renders the component with provided props", () => {
-        render(<DesktopIcon name={name} iconURL={iconURL} />);
+        render(<DesktopIcon name={name} iconURL={iconURL} type={type} />);
 
         const img = screen.getByRole("img");
         expect(img).toHaveAttribute("src", iconURL);
@@ -16,14 +17,14 @@ describe("DesktopIcon", () => {
     });
 
     it("uses the default image if no iconURL is provided", () => {
-        render(<DesktopIcon name={name} />);
+        render(<DesktopIcon name={name} type={type} />);
 
         const img = screen.getByRole("img");
         expect(img).toHaveAttribute("src", expect.stringContaining("placeholder.jpg"));
     });
 
     it("properly positions itself after being dragged and dropped", () => {
-        render(<DesktopIcon name={name} />);
+        render(<DesktopIcon name={name} type={type} />);
         const desktopIcon = screen.getByTestId('desktopicon');
         const event = new MouseEvent('dragend', {
             bubbles: true,
