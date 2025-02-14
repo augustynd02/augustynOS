@@ -1,19 +1,14 @@
 import React, { useContext } from 'react';
 import styles from './desktopicon.module.scss';
 import AppContext from '../../contexts/AppContext';
-import { Application } from '../../types/Application';
 import { Icon } from '../../types/Icon';
+import createApp from '../../utils/createApp';
 
 function DesktopIcon({ icon }: { icon: Icon }) {
     const { startApp } = useContext(AppContext);
     const handleDoubleClick = () => {
-        const app: Application = {
-            id: icon.id,
-            name: icon.name,
-            type: icon.type,
-            iconURL: icon.iconURL,
-            isMinimized: false
-        }
+        // TODO: maybe link the IDs of icon and corresponding app
+        const app = createApp(icon.name, icon.type, icon.iconURL);
         startApp(app);
     }
     const handleDragEnd = (e: React.DragEvent) => {
