@@ -68,6 +68,7 @@
 }
 
 .maximized {
+    transform: translate(0, 0) !important;
     width: 100% !important;
     height: calc(100% - var(--taskbar-height)) !important;
 }

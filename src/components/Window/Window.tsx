@@ -56,10 +56,6 @@ function Window({ app }: { app: Application }) {
 
     const handleMaximize = () => {
         setIsMaximized(!isMaximized);
-        setPosition({
-            x: 0,
-            y: 0
-        })
     };
 
     const handleMinimize = () => {
@@ -72,7 +68,6 @@ function Window({ app }: { app: Application }) {
     };
 
     const handleResizeStart = (e: React.MouseEvent) => {
-        console.log("Starting resizing");
         const target = e.target as HTMLElement;
         const direction = target.getAttribute('data-direction');
         if (direction === "up" || direction === "right" || direction === "down" || direction === "left") {
@@ -129,9 +124,8 @@ function Window({ app }: { app: Application }) {
     }, [initialPosition, isResizing, resizingDirection])
 
     const handleResizeEnd = useCallback(() => {
-        console.log("Ending resizing", dimensions.width);
         setIsResizing(false);
-    }, [dimensions]);
+    }, []);
 
     useEffect(() => {
         if (isDragging) {
