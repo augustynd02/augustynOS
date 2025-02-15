@@ -15,7 +15,7 @@ type Position = {
     y: number;
 };
 
-type Direction = "up" | "right" | "down" | "left";
+type Direction = "up" | "right" | "down" | "left" | "ne" | "se" | "sw" | "nw";
 
 function Window({ app }: { app: Application }) {
     const [dimensions, setDimensions] = useState({ width: 500, height: 500 });
@@ -70,7 +70,7 @@ function Window({ app }: { app: Application }) {
     const handleResizeStart = (e: React.MouseEvent) => {
         const target = e.target as HTMLElement;
         const direction = target.getAttribute('data-direction');
-        if (direction === "up" || direction === "right" || direction === "down" || direction === "left") {
+        if (direction === "up" || direction === "right" || direction === "down" || direction === "left" || direction == "ne" || direction == "se" || direction == "sw" || direction == "nw") {
             setResizingDirection(direction);
             setIsResizing(true);
             setInitialPosition({ x: e.clientX, y: e.clientY });
@@ -82,6 +82,7 @@ function Window({ app }: { app: Application }) {
     const handleResize = useCallback((e: MouseEvent) => {
         if (!isResizing) return;
 
+        console.log(`Resizing ${resizingDirection}`)
         switch (resizingDirection) {
             case "up":
                 setDimensions(prev => ({
@@ -113,6 +114,42 @@ function Window({ app }: { app: Application }) {
                 setPosition(prev => ({
                     x: e.clientX,
                     y: prev.y
+                }))
+                break;
+            case "ne":
+                setDimensions(prev => ({
+                    width: prev.width + (e.clientX - initialPosition.x),
+                    height: prev.height - (e.clientY - initialPosition.y)
+                }));
+                setPosition(prev => ({
+                    x: prev.x,
+                    y: e.clientY
+                }))
+                break;
+            case "se":
+                setDimensions(prev => ({
+                    width: prev.width + (e.clientX - initialPosition.x),
+                    height: prev.height + (e.clientY - initialPosition.y)
+                }));
+                break;
+            case "sw":
+                setDimensions(prev => ({
+                    width: prev.width - (e.clientX - initialPosition.x),
+                    height: prev.height + (e.clientY - initialPosition.y)
+                }));
+                setPosition(prev => ({
+                    x: e.clientX,
+                    y: prev.y
+                }))
+                break;
+            case "nw":
+                setDimensions(prev => ({
+                    width: prev.width - (e.clientX - initialPosition.x),
+                    height: prev.height - (e.clientY - initialPosition.y)
+                }));
+                setPosition(prev => ({
+                    x: e.clientX,
+                    y: e.clientY
                 }))
                 break;
         }
@@ -193,6 +230,11 @@ function Window({ app }: { app: Application }) {
             <div className={`${styles.resizer} ${styles.resizer__right}`} onMouseDown={handleResizeStart} data-direction="right"></div>
             <div className={`${styles.resizer} ${styles.resizer__down}`} onMouseDown={handleResizeStart} data-direction="down"></div>
             <div className={`${styles.resizer} ${styles.resizer__left}`} onMouseDown={handleResizeStart} data-direction="left"></div>
+
+            <div className={`${styles.resizer} ${styles.resizer__ne}`} onMouseDown={handleResizeStart} data-direction="ne"></div>
+            <div className={`${styles.resizer} ${styles.resizer__se}`} onMouseDown={handleResizeStart} data-direction="se"></div>
+            <div className={`${styles.resizer} ${styles.resizer__sw}`} onMouseDown={handleResizeStart} data-direction="sw"></div>
+            <div className={`${styles.resizer} ${styles.resizer__nw}`} onMouseDown={handleResizeStart} data-direction="nw"></div>
         </div>
     );
 }

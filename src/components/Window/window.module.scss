@@ -110,3 +110,36 @@
     top: 0;
     cursor: ew-resize;
 }
+
+.resizer__ne {
+    width: 10px;
+    height: 10px;
+    top: -5px;
+    right: -5px;
+    cursor: nesw-resize;
+}
+
+.resizer__se {
+    width: 10px;
+    height: 10px;
+    bottom: -5px;
+    right: -5px;
+    cursor: nwse-resize;
+}
+
+.resizer__sw {
+    width: 10px;
+    height: 10px;
+    bottom: -5px;
+    left: -5px;
+    cursor: nesw-resize;
+}
+
+.resizer__nw {
+    width: 10px;
+    height: 10px;
+    top: -5px;
+    left: -5px;
+    cursor: nwse-resize;
+}
+
