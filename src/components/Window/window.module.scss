@@ -75,3 +75,37 @@
 .minimized {
     visibility: hidden;
 }
+
+.resizer {
+    position: absolute;
+}
+
+.resizer__up {
+    width: 100%;
+    height: 2px;
+    top: -2px;
+    cursor: ns-resize;
+}
+
+.resizer__down {
+    width: 100%;
+    height: 2px;
+    bottom: -2px;
+    cursor: ns-resize;
+}
+
+.resizer__left {
+    height: 100%;
+    width: 2px;
+    left: -2px;
+    top: 0;
+    cursor: ew-resize;
+}
+
+.resizer__right {
+    height: 100%;
+    width: 2px;
+    right: -2px;
+    top: 0;
+    cursor: ew-resize;
+}

@@ -15,12 +15,16 @@ type Position = {
     y: number;
 };
 
+type Direction = "up" | "right" | "down" | "left";
+
 function Window({ app }: { app: Application }) {
-    const [dimensions, setDimensions] = useState({ width: 700, height: 700 });
+    const [dimensions, setDimensions] = useState({ width: 500, height: 500 });
     const [initialPosition, setInitialPosition] = useState<Position>({ x: 0, y: 0 });
     const [position, setPosition] = useState<Position>({ x: 0, y: 0 });
     const [isDragging, setIsDragging] = useState(false);
     const [isMaximized, setIsMaximized] = useState(false);
+    const [isResizing, setIsResizing] = useState(false);
+    const [resizingDirection, setResizingDirection] = useState<Direction | null>(null);
 
     const { closeApp, toggleMinimize } = useContext(AppContext);
 
@@ -67,6 +71,68 @@ function Window({ app }: { app: Application }) {
         closeApp(app.id);
     };
 
+    const handleResizeStart = (e: React.MouseEvent) => {
+        console.log("Starting resizing");
+        const target = e.target as HTMLElement;
+        const direction = target.getAttribute('data-direction');
+        if (direction === "up" || direction === "right" || direction === "down" || direction === "left") {
+            setResizingDirection(direction);
+            setIsResizing(true);
+            setInitialPosition({ x: e.clientX, y: e.clientY });
+        } else {
+            setResizingDirection(null);
+        }
+    }
+
+    const handleResize = useCallback((e: MouseEvent) => {
+        if (!isResizing) return;
+
+        switch (resizingDirection) {
+            case "up":
+                setDimensions(prev => ({
+                    width: prev.width,
+                    height: prev.height - (e.clientY - initialPosition.y)
+                }))
+                setPosition(prev => ({
+                    x: prev.x,
+                    y: e.clientY
+                }))
+                break;
+            case "right":
+                setDimensions(prev => ({
+                    width: prev.width + (e.clientX - initialPosition.x),
+                    height: prev.height
+                }));
+                break;
+            case "down":
+                setDimensions(prev => ({
+                    width: prev.width,
+                    height: prev.height + (e.clientY - initialPosition.y)
+                }))
+                break;
+            case "left":
+                setDimensions(prev => ({
+                    width: prev.width - (e.clientX - initialPosition.x),
+                    height: prev.height
+                }));
+                setPosition(prev => ({
+                    x: e.clientX,
+                    y: prev.y
+                }))
+                break;
+        }
+
+        setInitialPosition({
+            x: e.clientX,
+            y: e.clientY
+        })
+    }, [initialPosition, isResizing, resizingDirection])
+
+    const handleResizeEnd = useCallback(() => {
+        console.log("Ending resizing", dimensions.width);
+        setIsResizing(false);
+    }, [dimensions]);
+
     useEffect(() => {
         if (isDragging) {
             document.addEventListener('mousemove', handleDrag);
@@ -81,6 +147,21 @@ function Window({ app }: { app: Application }) {
             document.removeEventListener('mouseup', handleDragEnd);
         };
     }, [isDragging, handleDrag]);
+
+    useEffect(() => {
+        if (isResizing) {
+            document.addEventListener('mousemove', handleResize);
+            document.addEventListener('mouseup', handleResizeEnd);
+        } else {
+            document.removeEventListener('mousemove', handleResize);
+            document.removeEventListener('mouseup', handleResizeEnd);
+        }
+
+        return () => {
+            document.removeEventListener('mousemove', handleResize);
+            document.removeEventListener('mouseup', handleResizeEnd);
+        };
+    }, [isResizing, handleResize, handleResizeEnd]);
 
     return (
         <div
@@ -113,6 +194,11 @@ function Window({ app }: { app: Application }) {
                 </div>
             </div>
             <div className={styles.content}></div>
+
+            <div className={`${styles.resizer} ${styles.resizer__up}`} onMouseDown={handleResizeStart} data-direction="up"></div>
+            <div className={`${styles.resizer} ${styles.resizer__right}`} onMouseDown={handleResizeStart} data-direction="right"></div>
+            <div className={`${styles.resizer} ${styles.resizer__down}`} onMouseDown={handleResizeStart} data-direction="down"></div>
+            <div className={`${styles.resizer} ${styles.resizer__left}`} onMouseDown={handleResizeStart} data-direction="left"></div>
         </div>
     );
 }
