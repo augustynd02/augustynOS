@@ -8,6 +8,9 @@
     background-color: var(--color-primary);
 
     .startMenu {
+        @include globals.center;
+        width: var(--taskbar-height);
+
         &:hover {
             background-color: var(--color-secondary);
         }
@@ -16,8 +19,7 @@
         }
 
         .logo {
-            height: 100%;
-            aspect-ratio: 1/1;
+            width: 60%;
 
             @include globals.center;
 
