@@ -28,6 +28,11 @@
         img {
             width: var(--size-icon-small);
         }
+
+        figcaption {
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
     }
 }
 
