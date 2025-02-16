@@ -212,9 +212,9 @@ function Window({ app }: { app: Application }) {
                         {app.name}
                     </figcaption>
                 </figure>
-                <div className={styles.actions}>
+                <div className={styles.actions} onClick={handleMinimize}>
                     <button>
-                        <VscChromeMinimize onClick={handleMinimize} />
+                        <VscChromeMinimize />
                     </button>
                     <button onClick={handleMaximize}>
                         {isMaximized ? <VscChromeRestore /> : <VscChromeMaximize />}
