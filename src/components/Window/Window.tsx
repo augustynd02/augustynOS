@@ -82,83 +82,91 @@ function Window({ app }: { app: Application }) {
     const handleResize = useCallback((e: MouseEvent) => {
         if (!isResizing) return;
 
-        console.log(`Resizing ${resizingDirection}`)
+        const deltaX = e.clientX - initialPosition.x;
+        const deltaY = e.clientY - initialPosition.y;
+
+        let newWidth = dimensions.width;
+        let newHeight = dimensions.height;
+        let newX = position.x;
+        let newY = position.y;
+
+        let newInitialX = e.clientX;
+        let newInitialY = e.clientY;
+
+        const maxWidth = 200;
+        const maxHeight = 25;
+
         switch (resizingDirection) {
             case "up":
-                setDimensions(prev => ({
-                    width: prev.width,
-                    height: prev.height - (e.clientY - initialPosition.y)
-                }))
-                setPosition(prev => ({
-                    x: prev.x,
-                    y: e.clientY
-                }))
+                if (dimensions.height - deltaY >= maxHeight) {
+                    newHeight -= deltaY;
+                    newY = e.clientY;
+                }
+                if (dimensions.height <= maxHeight) {
+                    newInitialY = position.y
+                }
                 break;
             case "right":
-                setDimensions(prev => ({
-                    width: prev.width + (e.clientX - initialPosition.x),
-                    height: prev.height
-                }));
+                newWidth = Math.max(maxWidth, dimensions.width + deltaX);
                 break;
             case "down":
-                setDimensions(prev => ({
-                    width: prev.width,
-                    height: prev.height + (e.clientY - initialPosition.y)
-                }))
+                if (dimensions.height + deltaY >= maxHeight) {
+                    newHeight += deltaY;
+                }
                 break;
             case "left":
-                setDimensions(prev => ({
-                    width: prev.width - (e.clientX - initialPosition.x),
-                    height: prev.height
-                }));
-                setPosition(prev => ({
-                    x: e.clientX,
-                    y: prev.y
-                }))
+                if (dimensions.width - deltaX >= maxWidth) {
+                    newWidth -= deltaX;
+                }
+                if (dimensions.width > maxWidth) {
+                    newX = e.clientX;
+                }
+                if (dimensions.width <= maxWidth) {
+                    newInitialX = position.x;
+                }
                 break;
             case "ne":
-                setDimensions(prev => ({
-                    width: prev.width + (e.clientX - initialPosition.x),
-                    height: prev.height - (e.clientY - initialPosition.y)
-                }));
-                setPosition(prev => ({
-                    x: prev.x,
-                    y: e.clientY
-                }))
+                newWidth += deltaX;
+                newHeight -= deltaY;
+                newY = e.clientY;
                 break;
             case "se":
-                setDimensions(prev => ({
-                    width: prev.width + (e.clientX - initialPosition.x),
-                    height: prev.height + (e.clientY - initialPosition.y)
-                }));
+                newWidth = Math.max(maxWidth, dimensions.width + deltaX);
+                newHeight += deltaY;
                 break;
             case "sw":
-                setDimensions(prev => ({
-                    width: prev.width - (e.clientX - initialPosition.x),
-                    height: prev.height + (e.clientY - initialPosition.y)
-                }));
-                setPosition(prev => ({
-                    x: e.clientX,
-                    y: prev.y
-                }))
+                if (dimensions.width - deltaX >= maxWidth) {
+                    newWidth -= deltaX;
+                }
+                if (dimensions.width > maxWidth) {
+                    newX = e.clientX;
+                }
+                if (dimensions.width <= maxWidth) {
+                    newInitialX = position.x;
+                }
+                newHeight += deltaY;
                 break;
             case "nw":
-                setDimensions(prev => ({
-                    width: prev.width - (e.clientX - initialPosition.x),
-                    height: prev.height - (e.clientY - initialPosition.y)
-                }));
-                setPosition(prev => ({
-                    x: e.clientX,
-                    y: e.clientY
-                }))
+                if (dimensions.width - deltaX >= maxWidth) {
+                    newWidth -= deltaX;
+                }
+                if (dimensions.width > maxWidth) {
+                    newX = e.clientX;
+                }
+                if (dimensions.width <= maxWidth) {
+                    newInitialX = position.x;
+                }
+                newHeight -= deltaY;
+                newY = e.clientY;
                 break;
+            default:
+                return;
         }
 
-        setInitialPosition({
-            x: e.clientX,
-            y: e.clientY
-        })
-    }, [initialPosition, isResizing, resizingDirection])
+        setDimensions({ width: newWidth, height: newHeight });
+        setPosition({ x: newX, y: newY });
+        setInitialPosition({ x: newInitialX, y: newInitialY});
+    }, [dimensions, initialPosition, isResizing, resizingDirection, position]);
 
     const handleResizeEnd = useCallback(() => {
         setIsResizing(false);
@@ -212,8 +220,8 @@ function Window({ app }: { app: Application }) {
                         {app.name}
                     </figcaption>
                 </figure>
-                <div className={styles.actions} onClick={handleMinimize}>
-                    <button>
+                <div className={styles.actions}>
+                    <button onClick={handleMinimize}>
                         <VscChromeMinimize />
                     </button>
                     <button onClick={handleMaximize}>
