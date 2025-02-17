@@ -1,5 +1,6 @@
 .window {
     position: absolute;
+    min-width: 200px;
 
     background-color: var(--color-secondary);
     box-shadow:rgba(0, 0, 0, 0.45) 0px 0px 10px 0px;
