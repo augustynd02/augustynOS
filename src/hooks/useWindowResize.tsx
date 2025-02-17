@@ -77,12 +77,16 @@ function useWindowResize({ position, setPosition, dimensions, setDimensions }: {
                 break;
             case "ne":
                 newWidth += deltaX;
-                newHeight -= deltaY;
-                newY = e.clientY;
+                if (dimensions.height - deltaY >= maxHeight) {
+                    newHeight -= deltaY;
+                    newY = e.clientY;
+                }
                 break;
             case "se":
                 newWidth = Math.max(maxWidth, dimensions.width + deltaX);
-                newHeight += deltaY;
+                if (dimensions.height + deltaY >= maxHeight) {
+                    newHeight += deltaY;
+                }
                 break;
             case "sw":
                 if (dimensions.width - deltaX >= maxWidth) {
@@ -94,7 +98,9 @@ function useWindowResize({ position, setPosition, dimensions, setDimensions }: {
                 if (dimensions.width <= maxWidth) {
                     newInitialX = position.x;
                 }
-                newHeight += deltaY;
+                if (dimensions.height + deltaY >= maxHeight) {
+                    newHeight += deltaY;
+                }
                 break;
             case "nw":
                 if (dimensions.width - deltaX >= maxWidth) {
@@ -106,8 +112,10 @@ function useWindowResize({ position, setPosition, dimensions, setDimensions }: {
                 if (dimensions.width <= maxWidth) {
                     newInitialX = position.x;
                 }
-                newHeight -= deltaY;
-                newY = e.clientY;
+                if (dimensions.height - deltaY >= maxHeight) {
+                    newHeight -= deltaY;
+                    newY = e.clientY;
+                }
                 break;
             default:
                 return;
