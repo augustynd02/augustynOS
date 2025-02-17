@@ -64,7 +64,7 @@ function Window({ app }: { app: Application }) {
         >
             <div className={styles.bar} onMouseDown={handleDragStart} onMouseUp={handleDragEnd}>
                 <figure>
-                    <img src={app.iconURL} alt="" />
+                    <img src={app.iconURL} alt={`${app.name} icon`} />
                     <figcaption>
                         {app.name}
                     </figcaption>
