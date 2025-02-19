@@ -8,12 +8,15 @@
 
     background-color: var(--color-secondary);
     border: 1px solid var(--color-border-light);
+
+    z-index: 2;
 }
 
 .subActionsModal {
     right: 5px;
     top: -5px;
     transform: translateX(100%);
+    z-index: 3;
 }
 
 .action {
