@@ -1,0 +1,39 @@
+.actionsModal {
+    position: absolute;
+    width: 200px;
+    padding: 4px 3px;
+
+    display: flex;
+    flex-direction: column;
+
+    background-color: var(--color-secondary);
+    border: 1px solid var(--color-border-light);
+}
+
+.subActionsModal {
+    right: 5px;
+    top: -5px;
+    transform: translateX(100%);
+}
+
+.action {
+    position: relative;
+    padding: 3px 0;
+
+    display: flex;
+    color: white;
+
+    &:hover {
+        background-color: var(--color-secondary-action);
+    }
+
+    .iconContainer {
+        width: 16px;
+        height: 16px;
+    }
+
+    button {
+        flex: 1;
+        text-align: left;
+    }
+}
