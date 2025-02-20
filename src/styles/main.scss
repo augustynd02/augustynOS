@@ -4,9 +4,10 @@
 
 :root {
     --color-primary: rgb(5, 5, 5);
-    --color-secondary: rgb(32, 32, 32);
-    --color-secondary-action: rgb(45, 45, 45);
+    --color-secondary: rgb(38, 38, 38);
+    --color-secondary-action: rgb(50, 50, 50);
     --color-border: rgb(63, 63, 63);
+    --color-border-light: rgb(160, 160, 160);
     --color-accent: rgb(148, 87, 192);
     --color-error: rgb(180, 48, 48);
     --color-error-action: rgb(148, 26, 26);
@@ -37,5 +38,5 @@ body {
     overflow: hidden;
 
     font-family: var(--font-ui);
-    font-size: 12px;
+    font-size: 11px;
 }
