@@ -1,5 +1,5 @@
 import styles from './ActionsModal.module.scss';
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 
 import { FaChevronRight } from "react-icons/fa6";
 
@@ -16,11 +16,24 @@ type Position = {
 };
 
 
-function ActionsModal({ actions, position, isSubModal = false }: { actions: Action[], position?: Position, isSubModal: boolean }) {
+function ActionsModal({ actions, position, isSubModal = false }: { actions: Action[], position?: Position, isSubModal?: boolean }) {
+    const modalRef = useRef<HTMLDivElement>(null);
+    const [modalHeight, setModalHeight] = useState(0);
+
+    useEffect(() => {
+        if (modalRef.current) {
+            setModalHeight(modalRef.current.offsetHeight);
+        }
+    }, [actions]);
+
+    const isLowerHalf = position && position.y > window.innerHeight / 2;
+    const adjustedY = isLowerHalf ? position.y - modalHeight : position.y;
+
     return (
         <div
+            ref={modalRef}
             className={`${styles.actionsModal} ${isSubModal ? styles.subActionsModal : ''}`}
-            style={position ? { transform: `translate(${position.x}px, ${position.y}px)` } : undefined}
+            style={position ? { transform: `translate(${position.x}px, ${adjustedY}px)` } : undefined}
         >
             {actions.map(action => (
                 <ActionItem key={action.name} action={action} />
