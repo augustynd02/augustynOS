@@ -9,7 +9,7 @@
     background-color: var(--color-secondary);
     border: 1px solid var(--color-border-light);
 
-    z-index: 2;
+    z-index: 9999;
     opacity: 0;
 
     animation: appear 0.2s forwards;
