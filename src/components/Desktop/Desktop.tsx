@@ -1,50 +1,62 @@
 import styles from './desktop.module.scss'
 import DesktopIcon from '../DesktopIcon/DesktopIcon'
-import React, { useState, useContext } from 'react';
-import AppContext from '../../contexts/AppContext';
+import React, { useContext } from 'react';
+import AppContext from '../../contexts/App/AppContext';
 import Window from '../Window/Window';
 import { Icon } from '../../types/Icon';
-import ActionsModal from '../ActionsModal/ActionsModal';
-import useActionsModal from '../../hooks/useActionsModal';
+import ActionsContext from "../../contexts/Actions/ActionsContext";
 
 type Action = {
     name: string;
     cb: () => void;
+    iconURL?: string;
     options?: Action[];
 }
 
-function Desktop({ icons }: { icons: Icon[] }) {
-    const [isRightClicked, setIsRightClicked] = useState(false);
-    const { openApps } = useContext(AppContext);
-    const { handleOpenModal, handleCloseModal, modalPosition, isModalShown } = useActionsModal()
+const actions: Action[] = [
+    {
+        name: "Refresh",
+        cb: () => { console.log("refresh clicked") },
+    },
+    {
+        name: "Test",
+        cb: () => { console.log("refresh clicked") },
+    },
+    {
+        name: "Sort by",
+        cb: () => { console.log("sortby clicked") },
+        iconURL: "",
+        options: [
+            {
+                name: "Ascending",
+                cb: () => { console.log("asc clicked") }
+            },
+            {
+                name: "Descending",
+                cb: () => { console.log("desc clicked") }
+            }
+        ]
+    },
+    {
+        name: "Test2",
+        cb: () => { console.log("refresh clicked") },
+    },
+    {
+        name: "Test3",
+        cb: () => { console.log("refresh clicked") },
+    },
+]
 
-    const actions: Action[] = [
-        {
-            name: "Refresh",
-            cb: () => { console.log("refresh clicked") },
-        },
-        {
-            name: "Sort by",
-            cb: () => { console.log("sortby clicked") },
-            options: [
-                {
-                    name: "Ascending",
-                    cb: () => { console.log("asc clicked") }
-                },
-                {
-                    name: "Descending",
-                    cb: () => { console.log("desc clicked") }
-                }
-            ]
-        }
-    ]
+function Desktop({ icons }: { icons: Icon[] }) {
+    const { openApps } = useContext(AppContext);
+    const { handleOpenModal } = useContext(ActionsContext);
 
     const handleDragOver = (e: React.DragEvent) => {
         e.preventDefault();
     }
 
     return (
-        <div className={styles.desktop} data-testid="desktop" onDragOver={handleDragOver} onContextMenu={handleOpenModal} onClick={handleCloseModal}>
+        <div className={styles.desktop} data-testid="desktop" onDragOver={handleDragOver} onContextMenu={(e) => handleOpenModal(e, actions)}>
             {
                 icons.map(icon => {
                     return <DesktopIcon key={icon.id} icon={icon} />
@@ -54,9 +66,6 @@ function Desktop({ icons }: { icons: Icon[] }) {
                 openApps.map(app => {
                     return <Window key={app.id} app={app} />
                 })
-            }
-            {
-                isModalShown ? <ActionsModal actions={actions} position={modalPosition} /> : null
             }
         </div>
     )
