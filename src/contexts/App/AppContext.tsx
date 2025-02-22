@@ -1,5 +1,5 @@
 import { createContext } from 'react';
-import { Application } from '../types/Application';
+import { Application } from '../../types/Application';
 
 type AppContextType = {
     openApps: Application[];
