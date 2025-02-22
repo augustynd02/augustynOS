@@ -26,14 +26,17 @@ function ActionsModal({ actions, position, isSubModal = false }: { actions: Acti
         }
     }, [actions]);
 
-    const isLowerHalf = position && position.y > window.innerHeight / 2;
-    const adjustedY = isLowerHalf ? position.y - modalHeight : position.y;
+    let adjustedY;
+    if (position) {
+        const isLowerHalf = position && position.y > window.innerHeight / 2;
+        adjustedY = isLowerHalf ? position.y - modalHeight : position.y;
+    }
 
     return (
         <div
             ref={modalRef}
             className={`${styles.actionsModal} ${isSubModal ? styles.subActionsModal : ''}`}
-            style={position ? { transform: `translate(${position.x}px, ${adjustedY}px)` } : undefined}
+            style={position ? { top: `${adjustedY}px`, left: `${position.x}px` } : undefined}
         >
             {actions.map(action => (
                 <ActionItem key={action.name} action={action} />
