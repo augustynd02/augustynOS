@@ -51,22 +51,28 @@ function ActionsModal({ actions, position, isSubModal = false }: { actions: Acti
 
 function SubActionsModal({ actions, parentPosition, parentDimensions }: { actions: Action[], parentPosition: Position, parentDimensions: Dimensions }) {
     const modalRef = useRef<HTMLDivElement>(null);
-    const [modalHeight, setModalHeight] = useState(0);
+    const [modalDimensions, setModalDimensions] = useState<Dimensions>({ width: 0, height: 0 });
 
     useEffect(() => {
         if (modalRef.current) {
-            setModalHeight(modalRef.current.offsetHeight);
+            setModalDimensions({
+                width: modalRef.current.offsetWidth,
+                height: modalRef.current.offsetHeight,
+            });
         }
     }, [actions]);
 
     const isLowerHalf = parentPosition.y > window.innerHeight / 2;
-    const adjustedY = isLowerHalf ? -modalHeight + parentDimensions.height : 0;
+    const adjustedY = isLowerHalf ? -modalDimensions.height + parentDimensions.height: 0;
+
+    const isRightHalf = parentPosition.x > window.innerWidth / 2;
+    const adjustedX = isRightHalf ? -modalDimensions.width - parentDimensions.width - 5 : -10;
 
     return (
         <div
             ref={modalRef}
             className={`${styles.actionsModal} ${styles.subActionsModal}`}
-            style={{ top: `${adjustedY}px` }}
+            style={{ top: `${adjustedY}px`, left: `${adjustedX}px`}}
         >
             {actions.map(action => (
                 <ActionItem key={action.name} action={action} />
