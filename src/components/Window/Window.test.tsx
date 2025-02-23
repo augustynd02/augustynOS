@@ -1,6 +1,6 @@
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import Desktop from "../Desktop/Desktop";
-import AppProvider from "../../contexts/AppProvider";
+import AppProvider from "../../contexts/App/AppProvider";
 import { Icon } from "../../types/Icon";
 import createIcon from "../../utils/createIcon";
 import { Application } from "../../types/Application";

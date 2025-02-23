@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import styles from './desktopicon.module.scss';
-import AppContext from '../../contexts/AppContext';
+import AppContext from '../../contexts/App/AppContext';
 import { Icon } from '../../types/Icon';
 import createApp from '../../utils/createApp';
 

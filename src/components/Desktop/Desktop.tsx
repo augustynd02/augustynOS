@@ -5,13 +5,7 @@ import AppContext from '../../contexts/App/AppContext';
 import Window from '../Window/Window';
 import { Icon } from '../../types/Icon';
 import ActionsContext from "../../contexts/Actions/ActionsContext";
-
-type Action = {
-    name: string;
-    cb: () => void;
-    iconURL?: string;
-    options?: Action[];
-}
+import { Action } from "../../types/Action";
 
 const actions: Action[] = [
     {

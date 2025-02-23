@@ -1,7 +1,7 @@
 import { fireEvent, render, screen } from '@testing-library/react';
 import Taskbar from './Taskbar';
 import Desktop from "../Desktop/Desktop";
-import AppProvider from "../../contexts/AppProvider";
+import AppProvider from "../../contexts/App/AppProvider";
 import { Icon } from '../../types/Icon';
 import createIcon from '../../utils/createIcon';
 

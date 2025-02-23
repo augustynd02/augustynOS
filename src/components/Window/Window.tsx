@@ -1,7 +1,7 @@
 import styles from './window.module.scss';
 import { Application } from '../../types/Application';
 import React, { useState, useContext } from 'react';
-import AppContext from '../../contexts/AppContext';
+import AppContext from '../../contexts/App/AppContext';
 import useWindowDrag from '../../hooks/useWindowDrag';
 import useWindowResize from '../../hooks/useWindowResize';
 
@@ -16,6 +16,8 @@ type Position = {
     x: number;
     y: number;
 };
+
+const directions = ["up", "right", "down", "left", "ne", "se", "sw", "nw"];
 
 function Window({ app }: { app: Application }) {
     const [dimensions, setDimensions] = useState({ width: 500, height: 500 });
@@ -83,15 +85,14 @@ function Window({ app }: { app: Application }) {
             </div>
             <div className={styles.content}></div>
 
-            <div className={`${styles.resizer} ${styles.resizer__up}`} onMouseDown={handleResizeStart} data-direction="up"></div>
-            <div className={`${styles.resizer} ${styles.resizer__right}`} onMouseDown={handleResizeStart} data-direction="right"></div>
-            <div className={`${styles.resizer} ${styles.resizer__down}`} onMouseDown={handleResizeStart} data-direction="down"></div>
-            <div className={`${styles.resizer} ${styles.resizer__left}`} onMouseDown={handleResizeStart} data-direction="left"></div>
-
-            <div className={`${styles.resizer} ${styles.resizer__ne}`} onMouseDown={handleResizeStart} data-direction="ne"></div>
-            <div className={`${styles.resizer} ${styles.resizer__se}`} onMouseDown={handleResizeStart} data-direction="se"></div>
-            <div className={`${styles.resizer} ${styles.resizer__sw}`} onMouseDown={handleResizeStart} data-direction="sw"></div>
-            <div className={`${styles.resizer} ${styles.resizer__nw}`} onMouseDown={handleResizeStart} data-direction="nw"></div>
+            {directions.map((dir) => (
+                <div
+                    key={dir}
+                    className={`${styles.resizer} ${styles[`resizer__${dir}`]}`}
+                    onMouseDown={handleResizeStart}
+                    data-direction={dir}
+                />
+            ))}
         </div>
     );
 }
