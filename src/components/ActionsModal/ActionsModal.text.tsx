@@ -60,4 +60,13 @@ describe('ActionsModal', () => {
         fireEvent.mouseLeave(actionButton)
         expect(screen.queryByText('Subaction 1')).not.toBeInTheDocument();
     })
+
+    it('calls action callback when an action is clicked', () => {
+        render(<ActionsModal actions={actions} position={defaultPosition} />);
+
+        const actionButton = screen.getByText('Action 1');
+        fireEvent.click(actionButton);
+
+        expect(actions[0].cb).toHaveBeenCalled();
+    });
 })
