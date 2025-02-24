@@ -5,14 +5,14 @@
 
     display: flex;
 
-    background-color: var(--color-primary);
+    background-color: var(--color-primary-900);
 
     .startMenu {
         @include globals.center;
         width: var(--taskbar-height);
 
         &:hover {
-            background-color: var(--color-secondary);
+            background-color: var(--color-primary-500);
         }
         &:hover .logo {
             color: var(--color-accent);
@@ -57,7 +57,7 @@
                 height: 0px;
                 margin: 0 4px;
 
-                background-color: var(--color-secondary);
+                background-color: var(--color-primary-500);
                 border-bottom: 2px solid var(--color-accent);
                 z-index: -1;
 
