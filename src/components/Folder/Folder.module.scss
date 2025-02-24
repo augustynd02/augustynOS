@@ -1,0 +1,38 @@
+.folderContainer {
+    height: 100%;
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+
+    .actionBar {
+        height: 25px;
+
+        display: flex;
+
+        background-color: var(--color-primary-600);
+
+        button {
+            width: var(--size-icon-small);
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            &:hover > svg {
+                color: var(--color-accent);
+            }
+
+            svg {
+                color: white;
+
+                transition: color 0.2s;
+            }
+        }
+    }
+
+    .content {
+        background-color: var(--color-primary-400);
+        flex: 1;
+    }
+}
