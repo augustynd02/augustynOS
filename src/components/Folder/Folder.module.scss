@@ -7,32 +7,90 @@
 
     .actionBar {
         height: 25px;
+        padding: 0 var(--spacing-small) 0 0;
 
         display: flex;
+        align-items: center;
 
         background-color: var(--color-primary-600);
 
         button {
             width: var(--size-icon-small);
+            flex-shrink: 0;
 
             display: flex;
             justify-content: center;
             align-items: center;
 
+            svg {
+                color: white;
+                transition: color 0.2s;
+            }
+
             &:hover > svg {
                 color: var(--color-accent);
             }
+        }
+
+        input {
+            background-color: inherit;
+            border: none;
+
+            color: white;
+            font-size: 10px;
+
+            &:focus {
+                outline: none;
+            }
+        }
+
+        .location {
+            height: 17.5px;
+            min-width: 160px;
+            flex: 1;
+
+            display: flex;
+            border: 1px solid var(--color-primary-100);
 
             svg {
-                color: white;
+                height: 100%;
+                aspect-ratio: 1/1;
+            }
+        }
 
-                transition: color 0.2s;
+        .search {
+            height: 17.5px;
+            margin-left: var(--spacing-small);
+            min-width: 70px;
+            padding: 0 4px;
+
+            display: flex;
+            align-items: center;
+            border: 1px solid var(--color-primary-100);
+
+            input {
+                min-width: 0;
+                flex: 1;
+
+                &:focus::placeholder {
+                    color: transparent;
+                }
+            }
+
+            svg {
+                height: 100%;
+                aspect-ratio: 1/1;
+                color: var(--color-border-light);
             }
         }
     }
 
     .content {
-        background-color: var(--color-primary-400);
         flex: 1;
+        background-color: var(--color-primary-500);
+    }
+
+    .info {
+        background-color: var(--color-primary-300);
     }
 }
