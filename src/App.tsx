@@ -12,6 +12,7 @@ import ActionsModal from "./components/ActionsModal/ActionsModal";
 import AppProvider from "./contexts/App/AppProvider";
 import ActionsContext from "./contexts/Actions/ActionsContext";
 import ActionsProvider from "./contexts/Actions/ActionsProvider";
+import FileSystemProvider from "./contexts/FileSystem/FileSystemProvider";
 
 // Separated content to access context
 function AppContent() {
@@ -33,11 +34,13 @@ function AppContent() {
 
 function App() {
   return (
-    <AppProvider>
-      <ActionsProvider>
-        <AppContent />
-      </ActionsProvider>
-    </AppProvider>
+    <FileSystemProvider>
+      <AppProvider>
+        <ActionsProvider>
+          <AppContent />
+        </ActionsProvider>
+      </AppProvider>
+    </FileSystemProvider>
   );
 }
 
