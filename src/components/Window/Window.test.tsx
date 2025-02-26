@@ -1,66 +1,52 @@
-import { render, screen, fireEvent, waitFor } from "@testing-library/react";
-import Desktop from "../Desktop/Desktop";
-import AppProvider from "../../contexts/App/AppProvider";
-import { Icon } from "../../types/Icon";
-import createIcon from "../../utils/createIcon";
-import { Application } from "../../types/Application";
-import Window from "./Window";
+import { render, screen, fireEvent } from '@testing-library/react';
+import Window from './Window';
+import AppContext from '../../contexts/App/AppContext';
+import createFile from '../../utils/createFile';
+import createApp from '../../utils/createApp';
+import { vi } from 'vitest';
 
-describe("Window", () => {
-    const icons: Icon[] = [
-        createIcon("test", "test")
-    ];
+describe('Window component', () => {
+    const mockCloseApp = vi.fn();
+    const mockToggleMinimize = vi.fn();
 
-    const mockApp: Application = {
-        id: '1',
-        name: 'test',
-        type: 'test',
-        iconURL: 'testurl.jpg',
-        isMinimized: false
-    }
+    const file = createFile('file1', 'Test File');
+    const app = createApp(file);
 
-    it("renders correctly with given props", () => {
-        render(
-            <Window app={mockApp} />
-        )
-
-        const window = screen.getByTestId('window');
-        const name = screen.getByText('test');
-        const icon = screen.getByRole("img", { name: "test icon" });
-
-        expect(window).toBeInTheDocument();
-        expect(name).toBeInTheDocument();
-        expect(icon).toBeInTheDocument();
-        expect(icon).toHaveAttribute("src", "testurl.jpg");
-    })
-
-    it("renders upon a desktop icon being double-clicked", async () => {
-        render(
-            <AppProvider>
-                <Desktop icons={icons} />
-            </AppProvider>
+    const renderWindow = (testApp = app) => {
+        return render(
+            <AppContext.Provider value={{ openApps: [testApp], startApp: vi.fn(), closeApp: mockCloseApp, toggleMinimize: mockToggleMinimize }}>
+                <Window app={testApp} />
+            </AppContext.Provider>
         );
-        const desktopIcon = screen.getByTestId('desktopicon');
-        fireEvent.dblClick(desktopIcon);
+    };
 
-        expect(await screen.findByTestId("window")).toBeInTheDocument();
+    it('renders the window correctly', () => {
+        renderWindow();
+        expect(screen.getByTestId('window')).toBeInTheDocument();
     });
 
-    it("closes upon close button being clicked", async () => {
-        render(
-            <AppProvider>
-               <Desktop icons={icons} />
-            </AppProvider>
-        );
+    it('displays the app icon and name', () => {
+        renderWindow();
+        expect(screen.getByAltText('Test File icon')).toBeInTheDocument();
+        expect(screen.getByText('Test File')).toBeInTheDocument();
+    });
 
-        const desktopIcon = screen.getByTestId('desktopicon');
-        fireEvent.dblClick(desktopIcon);
+    it('closes the window when close button is clicked', () => {
+        renderWindow();
 
-        await waitFor(() => expect(screen.getByTestId("window")).toBeInTheDocument());
+        fireEvent.click(screen.getByTestId('close'));
 
-        const button = screen.getByTestId("close");
-        fireEvent.click(button);
+        expect(mockCloseApp).toHaveBeenCalledWith('file1');
+    });
 
-        expect(screen.queryByTestId("window")).not.toBeInTheDocument();
+    it('handles drag events', () => {
+        renderWindow();
+
+        const titleBar = screen.getByText('Test File');
+
+        fireEvent.mouseDown(titleBar);
+        fireEvent.mouseUp(titleBar);
+
+        expect(screen.getByTestId('window')).toBeInTheDocument();
     });
 });

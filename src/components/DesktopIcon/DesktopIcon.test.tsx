@@ -1,30 +1,30 @@
 import { render, screen, getByTestId, fireEvent } from "@testing-library/react";
 import DesktopIcon from "./DesktopIcon";
-import createIcon from "../../utils/createIcon";
+import createFile from "../../utils/createFile";
 
 describe("DesktopIcon", () => {
-    const icon = createIcon("test", "test");
-    const iconWithImg = createIcon("test2", "test", "https://cdn-icons-png.flaticon.com/256/896/896866.png")
+    const file = createFile('test', 'test');
+    const fileWithImg = createFile('test2', 'test2', 'https://cdn-icons-png.flaticon.com/256/896/896866.png')
 
     it("renders the component with provided props", () => {
-        render(<DesktopIcon icon={iconWithImg} />);
+        render(<DesktopIcon file={fileWithImg} />);
 
         const img = screen.getByRole("img");
-        expect(img).toHaveAttribute("src", iconWithImg.iconURL);
-        expect(img).toHaveAttribute("alt", `${iconWithImg.name} icon`);
+        expect(img).toHaveAttribute("src", fileWithImg.iconURL);
+        expect(img).toHaveAttribute("alt", `${fileWithImg.name} icon`);
 
-        expect(screen.getByText(iconWithImg.name)).toBeInTheDocument();
+        expect(screen.getByText(fileWithImg.name)).toBeInTheDocument();
     });
 
     it("uses the default image if no iconURL is provided", () => {
-        render(<DesktopIcon icon={icon} />);
+        render(<DesktopIcon file={file} />);
 
         const img = screen.getByRole("img");
-        expect(img).toHaveAttribute("src", expect.stringContaining("5018320-200.png"));
+        expect(img).toHaveAttribute("src", expect.stringContaining("windows-file-icon-16.jpg"));
     });
 
     it("properly positions itself after being dragged and dropped", () => {
-        render(<DesktopIcon icon={icon} />);
+        render(<DesktopIcon file={file} />);
         const desktopIcon = screen.getByTestId('desktopicon');
         const event = new MouseEvent('dragend', {
             bubbles: true,
