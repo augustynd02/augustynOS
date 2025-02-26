@@ -4,6 +4,7 @@ import { FileSystem } from "../../types/FileSystem";
 
 import createFolder from "../../utils/createFolder";
 import createFile from "../../utils/createFile";
+import { Folder } from "../../types/Folder";
 
 const defaultFileSystem: FileSystem = createFolder('root', "Root", [
     createFolder("desktop", "Desktop", [
@@ -15,8 +16,13 @@ const defaultFileSystem: FileSystem = createFolder('root', "Root", [
 
 export default function FileSystemProvider({ children } : { children: React.ReactNode}) {
     const [fileSystem, setFileSystem] = useState<FileSystem>(defaultFileSystem);
+
+    const getFolder = (id: string): Folder | undefined => {
+        return fileSystem.children.find((item) => item.id === id) as Folder;
+    };
+
     return (
-        <FileSystemContext.Provider value={{fileSystem}}>
+        <FileSystemContext.Provider value={{fileSystem, getFolder}}>
             { children }
         </FileSystemContext.Provider>
     )

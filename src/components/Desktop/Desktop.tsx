@@ -46,10 +46,8 @@ const actions: Action[] = [
 function Desktop() {
     const { openApps } = useContext(AppContext);
     const { handleOpenModal } = useContext(ActionsContext);
-    const { fileSystem } = useContext(FileSystemContext);
-    const desktopFolder = fileSystem.children.find(
-        (child) => child.id === "desktop"
-    ) as Folder;
+    const { getFolder } = useContext(FileSystemContext);
+    const desktopFolder = getFolder('desktop');
 
     const desktopItems = desktopFolder?.children ?? [];
 
