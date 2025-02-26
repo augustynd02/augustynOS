@@ -5,6 +5,8 @@ import AppContext from '../../contexts/App/AppContext';
 import useWindowDrag from '../../hooks/useWindowDrag';
 import useWindowResize from '../../hooks/useWindowResize';
 
+import Folder from '../Folder/Folder';
+
 import {
     VscChromeMinimize,
     VscChromeMaximize,
@@ -66,9 +68,9 @@ function Window({ app }: { app: Application }) {
         >
             <div className={styles.bar} onMouseDown={handleDragStart} onMouseUp={handleDragEnd}>
                 <figure>
-                    <img src={app.iconURL} alt={`${app.name} icon`} />
+                    <img src={app.file.iconURL} alt={`${app.file.name} icon`} />
                     <figcaption>
-                        {app.name}
+                        {app.file.name}
                     </figcaption>
                 </figure>
                 <div className={styles.actions}>
@@ -83,7 +85,9 @@ function Window({ app }: { app: Application }) {
                     </button>
                 </div>
             </div>
-            <div className={styles.content}></div>
+            <div className={styles.content}>
+                { app.file.type === "folder" ? <Folder /> : null }
+            </div>
 
             {directions.map((dir) => (
                 <div

@@ -6,6 +6,8 @@ import Window from '../Window/Window';
 import { Icon } from '../../types/Icon';
 import ActionsContext from "../../contexts/Actions/ActionsContext";
 import { Action } from "../../types/Action";
+import FileSystemContext from "../../contexts/FileSystem/FileSystemContext";
+import { Folder } from '../../types/Folder';
 
 const actions: Action[] = [
     {
@@ -41,9 +43,15 @@ const actions: Action[] = [
     },
 ]
 
-function Desktop({ icons }: { icons: Icon[] }) {
+function Desktop() {
     const { openApps } = useContext(AppContext);
     const { handleOpenModal } = useContext(ActionsContext);
+    const { fileSystem } = useContext(FileSystemContext);
+    const desktopFolder = fileSystem.children.find(
+        (child) => child.id === "desktop"
+    ) as Folder;
+
+    const desktopItems = desktopFolder?.children ?? [];
 
     const handleDragOver = (e: React.DragEvent) => {
         e.preventDefault();
@@ -52,8 +60,8 @@ function Desktop({ icons }: { icons: Icon[] }) {
     return (
         <div className={styles.desktop} data-testid="desktop" onDragOver={handleDragOver} onContextMenu={(e) => handleOpenModal(e, actions)}>
             {
-                icons.map(icon => {
-                    return <DesktopIcon key={icon.id} icon={icon} />
+                desktopItems.map(file => {
+                    return <DesktopIcon key={file.id} file={file} />
                 })
             }
             {

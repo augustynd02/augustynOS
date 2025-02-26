@@ -6,7 +6,7 @@ const createFolder = (id: string, name: string, children: File[]): Folder => {
         id: id,
         name: name,
         type: "folder",
-        iconURL: "testurl",
+        iconURL: "https://winaero.com/blog/wp-content/uploads/2018/11/folder-icon-big-256.png",
         children: children
     }
 }

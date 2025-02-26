@@ -1,14 +1,14 @@
 import React, { useContext } from 'react';
 import styles from './desktopicon.module.scss';
 import AppContext from '../../contexts/App/AppContext';
-import { Icon } from '../../types/Icon';
+import { File } from '../../types/File';
 import createApp from '../../utils/createApp';
 
-function DesktopIcon({ icon }: { icon: Icon }) {
+function DesktopIcon({ file }: { file: File }) {
     const { startApp } = useContext(AppContext);
     const handleDoubleClick = () => {
         // TODO: maybe link the IDs of icon and corresponding app
-        const app = createApp(icon.name, icon.type, icon.iconURL);
+        const app = createApp(file);
         startApp(app);
     }
     const handleDragEnd = (e: React.DragEvent) => {
@@ -28,9 +28,9 @@ function DesktopIcon({ icon }: { icon: Icon }) {
         <li className={styles.desktopIcon} draggable="true" onDoubleClick={handleDoubleClick} onDragEnd={handleDragEnd} data-testid="desktopicon">
             <button role="button">
                 <figure>
-                    <img src={icon.iconURL} alt={`${icon.name} icon`} className={styles.icon} draggable="false" />
+                    <img src={file.iconURL} alt={`${file.name} icon`} className={styles.icon} draggable="false" />
                     <figcaption className={styles.name}>
-                        {icon.name}
+                        {file.name}
                     </figcaption>
                 </figure>
             </button>

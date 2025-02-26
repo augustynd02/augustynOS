@@ -62,10 +62,10 @@ function Tab({ app, toggleMinimize }: { app: Application, toggleMinimize: (id: s
         <button key={app.id} className={styles.tab} onClick={handleClick}>
             <figure>
                 <picture>
-                    <img src={app.iconURL} />
+                    <img src={app.file.iconURL} />
                 </picture>
                 <figcaption>
-                    {app.name}
+                    {app.file.name}
                 </figcaption>
             </figure>
         </button>

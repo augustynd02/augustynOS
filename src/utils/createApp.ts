@@ -1,11 +1,10 @@
 import { Application } from "../types/Application";
+import { File } from "../types/File";
 
-const createApp = (name: string, type: string, iconURL: string = "https://static.thenounproject.com/png/5018320-200.png"):Application => {
+const createApp = (file: File):Application => {
     const app:Application = {
-        id: crypto.randomUUID(),
-        name: name,
-        type: type,
-        iconURL: iconURL,
+        id: file.id,
+        file: file,
         isMinimized: false,
     }
     return app;
