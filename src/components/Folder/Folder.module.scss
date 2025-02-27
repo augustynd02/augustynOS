@@ -86,8 +86,16 @@
     }
 
     .content {
+        padding: 6px 12px;
         flex: 1;
+
+        display: flex;
+        gap: var(--spacing-small);
         background-color: var(--color-primary-500);
+
+        button {
+            padding: 0 var(--spacing-small);
+        }
     }
 
     .info {
