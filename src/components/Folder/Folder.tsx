@@ -9,9 +9,11 @@ import { File } from '../../types/File';
 
 import DesktopIcon from '../DesktopIcon/DesktopIcon';
 import FolderIcon from '../FolderIcon/FolderIcon';
+import { useState } from 'react';
 
 function Folder({ file }: { file: File}) {
-    console.log(file);
+    const [currentFolder, setCurrentFolder] = useState(file);
+
     return (
         <div className={styles.folderContainer}>
             <div className={styles.actionBar}>
@@ -29,9 +31,9 @@ function Folder({ file }: { file: File}) {
                 </div>
             </div>
             <div className={styles.content}>
-                { file.children.map(item => {
+                { currentFolder.children.map(item => {
                     if (item.type === "folder") {
-                        return <FolderIcon file={item} />
+                        return <FolderIcon file={item} handleOpen={() => { setCurrentFolder(item) }}/>
                     }
                     return <DesktopIcon file={item} />
                 })}
