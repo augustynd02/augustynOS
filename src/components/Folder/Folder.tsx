@@ -9,7 +9,7 @@ import { Folder as FolderType } from '../../types/Folder';
 
 import DesktopIcon from '../DesktopIcon/DesktopIcon';
 import FolderIcon from '../FolderIcon/FolderIcon';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import isFolder from '../../utils/isFolder';
 
 function Folder({ file }: { file: FolderType}) {
@@ -18,13 +18,17 @@ function Folder({ file }: { file: FolderType}) {
 
     const handleOpenFolder = (item: FolderType) => {
         setCurrentFolder(item);
-        setHistory(prev => [...prev, item]);
+        setHistory(prev => [...prev, currentFolder]);
     }
 
+    const handleGoBack = (e: React.MouseEvent) => {
+        if (history.length === 0) return;
+        setCurrentFolder(history[history.length - 1]);
+    }
     return (
         <div className={styles.folderContainer}>
             <div className={styles.actionBar}>
-                <button> <FaArrowLeft /> </button>
+                <button onClick={handleGoBack} disabled={history.length === 0}> <FaArrowLeft /> </button>
                 <button> <FaArrowRight /> </button>
                 <button> <BiSolidChevronDown /> </button>
                 <button> <FaArrowUp /> </button>
@@ -40,9 +44,9 @@ function Folder({ file }: { file: FolderType}) {
             <div className={styles.content}>
                 { currentFolder.children.map(item => {
                     if (isFolder(item)) {
-                        return <FolderIcon file={item} handleOpenFolder={() => { handleOpenFolder(item) }}/>
+                        return <FolderIcon key={item.id} file={item} handleOpenFolder={() => { handleOpenFolder(item) }}/>
                     }
-                    return <DesktopIcon file={item} />
+                    return <DesktopIcon key={item.id} file={item} />
                 })}
             </div>
             <div className={styles.info}>a</div>

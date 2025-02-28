@@ -6,7 +6,7 @@
     flex-direction: column;
 
     .actionBar {
-        height: 25px;
+        height: 30px;
         padding: 0 var(--spacing-small) 0 0;
 
         display: flex;
@@ -15,7 +15,9 @@
         background-color: var(--color-primary-600);
 
         button {
+            height: 30px;
             width: var(--size-icon-small);
+            aspect-ratio: 1/1;
             flex-shrink: 0;
 
             display: flex;
@@ -23,12 +25,17 @@
             align-items: center;
 
             svg {
+                height: 100%;
                 color: white;
                 transition: color 0.2s;
             }
 
             &:hover > svg {
                 color: var(--color-accent);
+            }
+
+            &:disabled svg {
+                color: var(--color-primary-100);
             }
         }
 
@@ -45,7 +52,7 @@
         }
 
         .location {
-            height: 17.5px;
+            height: 20px;
             min-width: 160px;
             flex: 1;
 
@@ -59,7 +66,7 @@
         }
 
         .search {
-            height: 17.5px;
+            height: 20px;
             margin-left: var(--spacing-small);
             min-width: 70px;
             padding: 0 4px;
