@@ -5,14 +5,21 @@ import { FaArrowRight } from "react-icons/fa6";
 import { FaArrowUp } from "react-icons/fa6";
 import { BiSolidChevronDown } from "react-icons/bi";
 import { LiaSearchSolid } from "react-icons/lia";
-import { File } from '../../types/File';
+import { Folder as FolderType } from '../../types/Folder';
 
 import DesktopIcon from '../DesktopIcon/DesktopIcon';
 import FolderIcon from '../FolderIcon/FolderIcon';
 import { useState } from 'react';
+import isFolder from '../../utils/isFolder';
 
-function Folder({ file }: { file: File}) {
+function Folder({ file }: { file: FolderType}) {
     const [currentFolder, setCurrentFolder] = useState(file);
+    const [history, setHistory] = useState<FolderType[]>([])
+
+    const handleOpenFolder = (item: FolderType) => {
+        setCurrentFolder(item);
+        setHistory(prev => [...prev, item]);
+    }
 
     return (
         <div className={styles.folderContainer}>
@@ -32,8 +39,8 @@ function Folder({ file }: { file: File}) {
             </div>
             <div className={styles.content}>
                 { currentFolder.children.map(item => {
-                    if (item.type === "folder") {
-                        return <FolderIcon file={item} handleOpen={() => { setCurrentFolder(item) }}/>
+                    if (isFolder(item)) {
+                        return <FolderIcon file={item} handleOpenFolder={() => { handleOpenFolder(item) }}/>
                     }
                     return <DesktopIcon file={item} />
                 })}
