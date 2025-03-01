@@ -9,7 +9,7 @@ import { Folder as FolderType } from '../../types/Folder';
 
 import DesktopIcon from '../DesktopIcon/DesktopIcon';
 import FolderIcon from '../FolderIcon/FolderIcon';
-import React, { useState, useContext, useEffect } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import isFolder from '../../utils/isFolder';
 
 import AppContext from '../../contexts/App/AppContext';
