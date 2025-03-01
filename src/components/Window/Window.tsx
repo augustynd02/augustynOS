@@ -13,6 +13,7 @@ import {
     VscChromeRestore,
     VscChromeClose
 } from "react-icons/vsc";
+import isFolder from '../../utils/isFolder';
 
 type Position = {
     x: number;
@@ -86,7 +87,7 @@ function Window({ app }: { app: Application }) {
                 </div>
             </div>
             <div className={styles.content}>
-                { app.file.type === "folder" ? <Folder file={app.file} appId={app.id} /> : null }
+                { isFolder(app.file) ? <Folder file={app.file} appId={app.id} /> : null }
             </div>
 
             {directions.map((dir) => (
