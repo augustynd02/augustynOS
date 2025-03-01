@@ -80,7 +80,9 @@ function Folder({ file, appId }: { file: FolderType, appId: string }) {
                 })}
                 {currentFolder.children.length === 0 && <p style={{width: "100%"}}>This folder is empty.</p>}
             </div>
-            <div className={styles.info}>a</div>
+            <div className={styles.info}>
+                <p>{currentFolder.children.length} {currentFolder.children.length === 1 ? 'item' : 'items'} |</p>
+            </div>
         </div>
     )
 }

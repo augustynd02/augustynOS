@@ -93,7 +93,6 @@
     }
 
     .content {
-        width: 100%;
         padding: 6px 12px;
         flex: 1;
 
@@ -110,6 +109,9 @@
     }
 
     .info {
+        padding: 4px 12px;
+
         background-color: var(--color-primary-300);
+        color: white;
     }
 }
