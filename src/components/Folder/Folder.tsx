@@ -78,6 +78,7 @@ function Folder({ file, appId }: { file: FolderType, appId: string }) {
                     }
                     return <DesktopIcon key={item.id} file={item} />
                 })}
+                {currentFolder.children.length === 0 && <p style={{width: "100%"}}>This folder is empty.</p>}
             </div>
             <div className={styles.info}>a</div>
         </div>
