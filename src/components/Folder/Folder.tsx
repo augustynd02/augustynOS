@@ -12,7 +12,7 @@ import FolderIcon from '../FolderIcon/FolderIcon';
 import React, { useState } from 'react';
 import isFolder from '../../utils/isFolder';
 
-function Folder({ file }: { file: FolderType}) {
+function Folder({ file }: { file: FolderType }) {
     const [currentFolder, setCurrentFolder] = useState(file)
     const [history, setHistory] = useState<FolderType[]>([])
     const [forwardHistory, setForwardHistory] = useState<FolderType[]>([])
@@ -30,7 +30,7 @@ function Folder({ file }: { file: FolderType}) {
     }
 
     const handleGoForward = () => {
-        if (forwardHistory.length === 0) return ;
+        if (forwardHistory.length === 0) return;
         setHistory(prev => [...prev, currentFolder]);
         setForwardHistory(prev => prev.slice(0, prev.length - 1));
         setCurrentFolder(forwardHistory[forwardHistory.length - 1]);
@@ -39,13 +39,25 @@ function Folder({ file }: { file: FolderType}) {
     return (
         <div className={styles.folderContainer}>
             <div className={styles.actionBar}>
-                <button onClick={handleGoBack} disabled={history.length === 0}> <FaArrowLeft /> </button>
-                <button onClick={handleGoForward} disabled={forwardHistory.length === 0}> <FaArrowRight /> </button>
-                <button> <BiSolidChevronDown /> </button>
-                <button> <FaArrowUp /> </button>
+                <button
+                    onClick={handleGoBack}
+                    disabled={history.length === 0}
+                    title={history.length > 0 ? `Back to ${history[history.length - 1].name}` : undefined}
+                >
+                    <FaArrowLeft />
+                </button>
+                <button
+                    onClick={handleGoForward}
+                    disabled={forwardHistory.length === 0}
+                    title={forwardHistory.length > 0 ? `Forward to ${forwardHistory[forwardHistory.length - 1].name}` : undefined}
+                >
+                    <FaArrowRight />
+                </button>
+                <button disabled={true}> <BiSolidChevronDown /> </button>
+                <button disabled={true}> <FaArrowUp /> </button>
                 <div className={styles.location}>
                     <img src="https://winaero.com/blog/wp-content/uploads/2018/11/folder-icon-big-256.png" alt="" />
-                    <input type="text" value={file.name} />
+                    <input type="text" value={currentFolder.name} />
                 </div>
                 <div className={styles.search}>
                     <input type="text" name="" id="" placeholder="Search..." />
@@ -53,9 +65,9 @@ function Folder({ file }: { file: FolderType}) {
                 </div>
             </div>
             <div className={styles.content}>
-                { currentFolder.children.map(item => {
+                {currentFolder.children.map(item => {
                     if (isFolder(item)) {
-                        return <FolderIcon key={item.id} file={item} handleOpenFolder={() => { handleOpenFolder(item) }}/>
+                        return <FolderIcon key={item.id} file={item} handleOpenFolder={() => { handleOpenFolder(item) }} />
                     }
                     return <DesktopIcon key={item.id} file={item} />
                 })}
