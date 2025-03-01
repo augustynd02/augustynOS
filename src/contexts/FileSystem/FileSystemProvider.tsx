@@ -9,7 +9,10 @@ import { Folder } from "../../types/Folder";
 const defaultFileSystem: FileSystem = createFolder('root', "Root", [
     createFolder("desktop", "Desktop", [
         createFolder("folder1", "Test folder 1", [
-            createFolder("folder2", "Nested folder", [
+            createFolder("folder2", "Nested folder 2", [
+                createFolder("folder3", "Nested folder 3", [
+                    createFolder("folder4", "Nested folder 4", [])
+                ]),
                 createFile("nestedfile2", "Nested file 2")
             ]),
             createFile("nestedfile1", "Nested file 1")

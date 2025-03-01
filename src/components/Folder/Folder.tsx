@@ -13,23 +13,34 @@ import React, { useState } from 'react';
 import isFolder from '../../utils/isFolder';
 
 function Folder({ file }: { file: FolderType}) {
-    const [currentFolder, setCurrentFolder] = useState(file);
+    const [currentFolder, setCurrentFolder] = useState(file)
     const [history, setHistory] = useState<FolderType[]>([])
+    const [forwardHistory, setForwardHistory] = useState<FolderType[]>([])
 
     const handleOpenFolder = (item: FolderType) => {
         setCurrentFolder(item);
         setHistory(prev => [...prev, currentFolder]);
     }
 
-    const handleGoBack = (e: React.MouseEvent) => {
+    const handleGoBack = () => {
         if (history.length === 0) return;
+        setHistory(prev => prev.slice(0, prev.length - 1));
+        setForwardHistory(prev => [...prev, currentFolder]);
         setCurrentFolder(history[history.length - 1]);
     }
+
+    const handleGoForward = () => {
+        if (forwardHistory.length === 0) return ;
+        setHistory(prev => [...prev, currentFolder]);
+        setForwardHistory(prev => prev.slice(0, prev.length - 1));
+        setCurrentFolder(forwardHistory[forwardHistory.length - 1]);
+    }
+
     return (
         <div className={styles.folderContainer}>
             <div className={styles.actionBar}>
                 <button onClick={handleGoBack} disabled={history.length === 0}> <FaArrowLeft /> </button>
-                <button> <FaArrowRight /> </button>
+                <button onClick={handleGoForward} disabled={forwardHistory.length === 0}> <FaArrowRight /> </button>
                 <button> <BiSolidChevronDown /> </button>
                 <button> <FaArrowUp /> </button>
                 <div className={styles.location}>
