@@ -86,7 +86,7 @@ function Window({ app }: { app: Application }) {
                 </div>
             </div>
             <div className={styles.content}>
-                { app.file.type === "folder" ? <Folder file={app.file} /> : null }
+                { app.file.type === "folder" ? <Folder file={app.file} appId={app.id} /> : null }
             </div>
 
             {directions.map((dir) => (

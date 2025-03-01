@@ -9,13 +9,20 @@ import { Folder as FolderType } from '../../types/Folder';
 
 import DesktopIcon from '../DesktopIcon/DesktopIcon';
 import FolderIcon from '../FolderIcon/FolderIcon';
-import React, { useState } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import isFolder from '../../utils/isFolder';
 
-function Folder({ file }: { file: FolderType }) {
+import AppContext from '../../contexts/App/AppContext';
+
+function Folder({ file, appId }: { file: FolderType, appId: string }) {
     const [currentFolder, setCurrentFolder] = useState(file)
     const [history, setHistory] = useState<FolderType[]>([])
     const [forwardHistory, setForwardHistory] = useState<FolderType[]>([])
+    const { editAppName } = useContext(AppContext);
+
+    useEffect(() => {
+        editAppName(appId, currentFolder.name);
+    }, [currentFolder])
 
     const handleOpenFolder = (item: FolderType) => {
         setCurrentFolder(item);

@@ -19,8 +19,14 @@ export default function AppProvider({ children }: { children: React.ReactNode })
         ))
     }
 
+    const editAppName = (id: string, newName: string) => {
+        setOpenApps(prev => prev.map(app =>
+            app.id === id ? {...app, file: {...app.file, name: newName}} : app
+        ))
+    }
+
     return (
-        <AppContext.Provider value={{openApps, startApp, closeApp, toggleMinimize}}>
+        <AppContext.Provider value={{openApps, startApp, closeApp, editAppName, toggleMinimize}}>
             { children }
         </AppContext.Provider>
     )
