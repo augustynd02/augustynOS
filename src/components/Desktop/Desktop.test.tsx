@@ -22,8 +22,8 @@ describe('Desktop component', () => {
     const renderDesktop = () => {
         return render(
             <ActionsContext.Provider value={{ handleOpenModal: mockHandleOpenModal, handleCloseModal: vi.fn(), modalPosition: { x: 0, y: 0 }, isModalShown: false, actions: [] }}>
-                <AppContext.Provider value={{ openApps: customOpenApps, startApp: vi.fn(), closeApp: vi.fn(), toggleMinimize: vi.fn() }}>
-                    <FileSystemContext.Provider value={{ fileSystem: customFileSystem }}>
+                <AppContext.Provider value={{ openApps: customOpenApps, startApp: vi.fn(), closeApp: vi.fn(), editAppName: vi.fn(), toggleMinimize: vi.fn() }}>
+                    <FileSystemContext.Provider value={{ fileSystem: customFileSystem, getFolder: vi.fn() }}>
                         <Desktop />
                     </FileSystemContext.Provider>
                 </AppContext.Provider>
