@@ -17,7 +17,7 @@ describe('Taskbar component', () => {
     const renderTaskbar = () => {
         return render(
             <ActionsContext.Provider value={{ handleOpenModal: mockHandleOpenModal, handleCloseModal: vi.fn(), modalPosition: { x: 0, y: 0 }, isModalShown: false, actions: [] }}>
-                <AppContext.Provider value={{ openApps: [app1, app2], startApp: vi.fn(), closeApp: vi.fn(), toggleMinimize: mockToggleMinimize }}>
+                <AppContext.Provider value={{ openApps: [app1, app2], startApp: vi.fn(), closeApp: vi.fn(), editAppName: vi.fn(), toggleMinimize: mockToggleMinimize }}>
                     <Taskbar />
                 </AppContext.Provider>
             </ActionsContext.Provider>

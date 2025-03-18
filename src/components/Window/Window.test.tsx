@@ -14,7 +14,7 @@ describe('Window component', () => {
 
     const renderWindow = (testApp = app) => {
         return render(
-            <AppContext.Provider value={{ openApps: [testApp], startApp: vi.fn(), closeApp: mockCloseApp, toggleMinimize: mockToggleMinimize }}>
+            <AppContext.Provider value={{ openApps: [testApp], startApp: vi.fn(), closeApp: mockCloseApp, editAppName: vi.fn(), toggleMinimize: mockToggleMinimize }}>
                 <Window app={testApp} />
             </AppContext.Provider>
         );
