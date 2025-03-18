@@ -1,15 +1,12 @@
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import Folder from './Folder';
-import { FileSystemProvider } from '../../contexts/FileSystem/FileSystemProvider';
-import { AppProvider } from '../../contexts/App/AppProvider';
-import { createFolder } from '../../utils/createFolder';
-import { createFile } from '../../utils/createFile';
-import { createApp } from '../../utils/createApp';
+import FileSystemProvider from '../../contexts/FileSystem/FileSystemProvider';
+import AppProvider from '../../contexts/App/AppProvider';
+import  createFolder from '../../utils/createFolder';
+import createFile from '../../utils/createFile';
 import { Folder as FolderType } from '../../types/Folder';
-import { Application } from '../../types/Application';
 import { vi } from 'vitest';
 
-// Use the createFolder function to build the folder structure
 const fileSystemMock = createFolder('root', 'Root', [
   createFolder('desktop', 'Desktop', [
     createFolder('folder1', 'Test folder 1', [
@@ -17,16 +14,15 @@ const fileSystemMock = createFolder('root', 'Root', [
         createFolder('folder3', 'Nested folder 3', [
           createFolder('folder4', 'Nested folder 4', [])
         ]),
-        createFile('nestedfile2', 'Nested file 2') // Use createFile to create a file
+        createFile('nestedfile2', 'Nested file 2')
       ]),
-      createFile('nestedfile1', 'Nested file 1') // Use createFile to create a file
+      createFile('nestedfile1', 'Nested file 1')
     ]),
-    createFile('file1', 'Test file 1'), // Use createFile to create a file
-    createFile('file2', 'Test file 2')  // Use createFile to create a file
+    createFile('file1', 'Test file 1'),
+    createFile('file2', 'Test file 2')
   ])
 ]);
 
-// Use the createApp function to simulate apps
 const appContextMock = {
   openApps: [],
   startApp: vi.fn(),
