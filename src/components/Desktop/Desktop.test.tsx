@@ -7,6 +7,7 @@ import createFolder from '../../utils/createFolder';
 import createApp from '../../utils/createApp';
 import createFile from '../../utils/createFile';
 import { vi } from 'vitest';
+import { Folder } from '../../types/Folder';
 
 describe('Desktop component', () => {
     const mockHandleOpenModal = vi.fn();
@@ -17,13 +18,17 @@ describe('Desktop component', () => {
         createFolder('desktop', 'desktop', [file1])
     ])
 
+    const customGetFolder = (id: string) => {
+        return customFileSystem.children.find((item) => item.id === id) as Folder;
+    }
+
     const customOpenApps = [createApp(file1)];
 
     const renderDesktop = () => {
         return render(
             <ActionsContext.Provider value={{ handleOpenModal: mockHandleOpenModal, handleCloseModal: vi.fn(), modalPosition: { x: 0, y: 0 }, isModalShown: false, actions: [] }}>
                 <AppContext.Provider value={{ openApps: customOpenApps, startApp: vi.fn(), closeApp: vi.fn(), editAppName: vi.fn(), toggleMinimize: vi.fn() }}>
-                    <FileSystemContext.Provider value={{ fileSystem: customFileSystem, getFolder: vi.fn() }}>
+                    <FileSystemContext.Provider value={{ fileSystem: customFileSystem, getFolder: customGetFolder }}>
                         <Desktop />
                     </FileSystemContext.Provider>
                 </AppContext.Provider>
