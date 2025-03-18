@@ -1,11 +1,11 @@
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import Folder from './Folder';
 import FileSystemProvider from '../../contexts/FileSystem/FileSystemProvider';
-import AppProvider from '../../contexts/App/AppProvider';
 import  createFolder from '../../utils/createFolder';
 import createFile from '../../utils/createFile';
 import { Folder as FolderType } from '../../types/Folder';
 import { vi } from 'vitest';
+import AppContext from '../../contexts/App/AppContext';
 
 const fileSystemMock = createFolder('root', 'Root', [
   createFolder('desktop', 'Desktop', [
@@ -35,9 +35,9 @@ describe('Folder component', () => {
   const renderFolder = (file: FolderType) => {
     render(
       <FileSystemProvider>
-        <AppProvider value={appContextMock}>
+        <AppContext.Provider value={appContextMock}>
           <Folder file={file} appId="app1" />
-        </AppProvider>
+        </AppContext.Provider>
       </FileSystemProvider>
     );
   };
@@ -138,7 +138,7 @@ describe('Folder component', () => {
   test('handles folder search input', () => {
     renderFolder(fileSystemMock);
 
-    const searchInput = screen.getByPlaceholderText('Search...');
+    const searchInput = screen.getByPlaceholderText('Search...') as HTMLInputElement;
     fireEvent.change(searchInput, { target: { value: 'Test file 1' } });
 
     expect(searchInput.value).toBe('Test file 1');
