@@ -44,12 +44,13 @@ function Folder({ file, appId }: { file: FolderType, appId: string }) {
     }
 
     return (
-        <div className={styles.folderContainer}>
+        <div className={styles.folderContainer} data-testid="folder">
             <div className={styles.actionBar}>
                 <button
                     onClick={handleGoBack}
                     disabled={history.length === 0}
                     title={history.length > 0 ? `Back to ${history[history.length - 1].name}` : undefined}
+                    aria-label='Go back'
                 >
                     <FaArrowLeft />
                 </button>
@@ -57,6 +58,7 @@ function Folder({ file, appId }: { file: FolderType, appId: string }) {
                     onClick={handleGoForward}
                     disabled={forwardHistory.length === 0}
                     title={forwardHistory.length > 0 ? `Forward to ${forwardHistory[forwardHistory.length - 1].name}` : undefined}
+                    aria-label='Go forward'
                 >
                     <FaArrowRight />
                 </button>
@@ -80,7 +82,7 @@ function Folder({ file, appId }: { file: FolderType, appId: string }) {
                 })}
                 {currentFolder.children.length === 0 && <p style={{width: "100%"}}>This folder is empty.</p>}
             </div>
-            <div className={styles.info}>
+            <div className={styles.info} data-testid="info">
                 <p>{currentFolder.children.length} {currentFolder.children.length === 1 ? 'item' : 'items'} |</p>
             </div>
         </div>
