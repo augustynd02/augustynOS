@@ -1,0 +1,59 @@
+.browserContainer {
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
+
+    .actionBar {
+        height: 40px;
+
+        display: flex;
+        align-items: center;
+
+        background-color: rgb(61, 61, 61);
+
+        button {
+            height: 100%;
+            aspect-ratio: 1/1;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            svg {
+                color: white;
+                height: 100%;
+                width: 12.5px;
+            }
+
+            &:last-of-type svg {
+                width: 18px;
+            }
+        }
+
+        input {
+            flex: 1;
+            background-color: rgb(41, 41, 41);
+            border: none;
+            height: 30px;
+            border-radius: 2rem;
+            color: white;
+            padding: 0 var(--spacing-medium);
+            font-size: 1.2em;
+            margin-right: var(--spacing-medium);
+        }
+    }
+
+    .content {
+        flex: 1;
+        overflow: hidden;
+
+        iframe {
+            width: 100%;
+            height: 100%;
+
+            border: none;
+        }
+    }
+}
