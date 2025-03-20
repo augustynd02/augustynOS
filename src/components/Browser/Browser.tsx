@@ -2,6 +2,7 @@ import styles from './Browser.module.scss';
 import { FaArrowLeft } from "react-icons/fa6";
 import { FaArrowRight } from "react-icons/fa6";
 import { MdOutlineRefresh } from "react-icons/md";
+import { TbPlant2 } from "react-icons/tb";
 
 import React, { useState, useRef, useEffect } from 'react';
 
@@ -36,6 +37,11 @@ function Browser() {
         }
     }
 
+    const handleBookmarkClick = (url: string) => {
+        setUrl(url);
+        setSearchInputData(url);
+    }
+
     const handleInputClick = () => {
         if (!isInputClicked) {
             searchInputRef.current?.select();
@@ -68,6 +74,20 @@ function Browser() {
                     <MdOutlineRefresh />
                 </button>
                 <input type="text" value={searchInputData} onChange={handleInputChange} ref={searchInputRef} onKeyDown={handleUpdateUrl} onClick={handleInputClick} onBlur={handleBlur}/>
+            </div>
+            <div className={styles.bookmarksBar}>
+                <div className={styles.bookmark} onClick={() => { handleBookmarkClick('https://aspdevs.vercel.app')}}>
+                    <TbPlant2 />
+                    <span>aspdevs</span>
+                </div>
+                <div className={styles.bookmark}>
+                    <TbPlant2 />
+                    <span>aspdevs</span>
+                </div>
+                <div className={styles.bookmark}>
+                    <TbPlant2 />
+                    <span>aspdevs</span>
+                </div>
             </div>
             <div className={styles.content}>
                 <iframe src={url} ></iframe>
