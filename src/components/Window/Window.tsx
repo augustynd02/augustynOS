@@ -24,7 +24,6 @@ type Position = {
 const directions = ["up", "right", "down", "left", "ne", "se", "sw", "nw"];
 
 function Window({ app }: { app: Application }) {
-    console.log(app.file.type);
     const [dimensions, setDimensions] = useState({ width: 500, height: 500 });
     const [position, setPosition] = useState<Position>({ x: 0, y: 0 });
     const [isMaximized, setIsMaximized] = useState(false);
