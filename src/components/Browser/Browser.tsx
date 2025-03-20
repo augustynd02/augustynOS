@@ -7,13 +7,16 @@ import { TbPlant2 } from "react-icons/tb";
 import React, { useState, useRef, useEffect } from 'react';
 
 import { tlds } from '../../constants/tlds';
+import { RiInfraredThermometerFill } from 'react-icons/ri';
 
 function Browser() {
     const [searchInputData, setSearchInputData] = useState('https://www.google.com/webhp?igu=1');
     const [isInputClicked, setIsInputClicked] = useState(false);
     const [url, setUrl] = useState('https://www.google.com/webhp?igu=1');
+    const [iframeKey, setIframeKey] = useState(0);
 
     const searchInputRef = useRef<HTMLInputElement>(null);
+    const iframeRef = useRef<HTMLIFrameElement>(null);
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setSearchInputData(e.target.value);
@@ -58,7 +61,7 @@ function Browser() {
     }
 
     const handleRefresh = () => {
-
+        setIframeKey(prev => prev + 1);
     };
 
     return (
@@ -80,9 +83,9 @@ function Browser() {
                     <TbPlant2 />
                     <span>aspdevs</span>
                 </div>
-                <div className={styles.bookmark}>
+                <div className={styles.bookmark} onClick={() => { handleBookmarkClick('https://sk-beryl.vercel.app')}}>
                     <TbPlant2 />
-                    <span>aspdevs</span>
+                    <span>SK</span>
                 </div>
                 <div className={styles.bookmark}>
                     <TbPlant2 />
@@ -90,7 +93,7 @@ function Browser() {
                 </div>
             </div>
             <div className={styles.content}>
-                <iframe src={url} ></iframe>
+                <iframe key={iframeKey} src={url} ref={iframeRef}></iframe>
             </div>
         </div>
     )
