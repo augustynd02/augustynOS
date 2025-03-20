@@ -39,9 +39,19 @@
             height: 30px;
             border-radius: 2rem;
             color: white;
-            padding: 0 var(--spacing-medium);
+            padding: 4px var(--spacing-medium);
             font-size: 1.2em;
             margin-right: var(--spacing-medium);
+
+            transition: background-color 0.2s ease-out;
+
+            &:hover {
+                background-color: rgb(82, 82, 82);
+            }
+
+            &:focus {
+                outline: 2px solid rgb(195, 195, 235);
+            }
         }
     }
 
