@@ -15,7 +15,7 @@ function Browser() {
     const [iframeKey, setIframeKey] = useState(0);
 
     const [history, setHistory] = useState<string[]>([url]);
-    const [historyIndex, setHistoryIndex] = useState(1);
+    const [historyIndex, setHistoryIndex] = useState(0);
 
     const searchInputRef = useRef<HTMLInputElement>(null);
     const iframeRef = useRef<HTMLIFrameElement>(null);
@@ -61,12 +61,12 @@ function Browser() {
     }
 
     const handleBack = () => {
-        setUrl(history[historyIndex - 2]);
+        setUrl(history[historyIndex - 1]);
         setHistoryIndex(prev => prev - 1);
     }
 
     const handleForward = () => {
-        setUrl(history[historyIndex]);
+        setUrl(history[historyIndex + 1]);
         setHistoryIndex(prev => prev + 1);
     }
 
@@ -77,10 +77,10 @@ function Browser() {
     return (
         <div className={styles.browserContainer}>
             <div className={styles.actionBar}>
-                <button onClick={handleBack} disabled={historyIndex === 1}>
+                <button onClick={handleBack} disabled={historyIndex === 0}>
                     <FaArrowLeft />
                 </button>
-                <button onClick={handleForward} disabled={history[historyIndex] === undefined}>
+                <button onClick={handleForward} disabled={history[historyIndex + 1] === undefined}>
                     <FaArrowRight />
                 </button>
                 <button onClick={handleRefresh}>
