@@ -7,25 +7,30 @@
 
     .actionBar {
         height: 40px;
+        padding: 0 var(--spacing-small);
 
         display: flex;
         align-items: center;
+        gap: var(--spacing-small);
 
         background-color: rgb(61, 61, 61);
 
         button {
-            height: 100%;
+            height: 80%;
             aspect-ratio: 1/1;
 
             display: flex;
             justify-content: center;
             align-items: center;
 
+            border-radius: 50%;
+            transition: 0.2s;
+
             svg {
-                color: white;
                 height: 100%;
                 width: 12.5px;
 
+                color: white;
             }
 
             &:last-of-type svg {
@@ -35,18 +40,23 @@
             &:disabled svg {
                 color: rgb(114, 114, 114);
             }
+            &:not(:disabled):hover {
+                background-color: rgb(82, 82, 82);
+            }
         }
 
         input {
             flex: 1;
+            height: 30px;
+            margin-right: var(--spacing-medium);
+            padding: 4px var(--spacing-medium);
+
             background-color: rgb(41, 41, 41);
             border: none;
-            height: 30px;
             border-radius: 2rem;
+
             color: white;
-            padding: 4px var(--spacing-medium);
             font-size: 1.2em;
-            margin-right: var(--spacing-medium);
 
             transition: background-color 0.2s ease-out;
 
@@ -61,20 +71,24 @@
     }
 
     .bookmarksBar {
+        height: 35px;
+
         display: flex;
         align-items: center;
-        background-color: rgb(61, 61, 61);
-        height: 35px;
         gap: var(--spacing-small);
+
+        background-color: rgb(61, 61, 61);
 
         .bookmark {
             width: max-content;
             padding: 3px 6px;
             margin-bottom: 6px;
-            border-radius: 16px;
+
             display: flex;
             align-items: center;
             gap: 4px;
+
+            border-radius: 16px;
 
             transition: background-color 0.2s ease-out;
 
@@ -85,13 +99,14 @@
             svg {
                 width: var(--size-icon-small);
                 height: var(--size-icon-small);
+
                 pointer-events: none;
             }
 
             span {
                 color: white;
                 font-size: 14px;
-                line-height: 1;
+
                 user-select: none;
                 pointer-events: none;
             }
