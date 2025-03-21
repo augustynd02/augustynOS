@@ -25,6 +25,7 @@
                 color: white;
                 height: 100%;
                 width: 12.5px;
+
             }
 
             &:last-of-type svg {
@@ -84,6 +85,7 @@
             svg {
                 width: var(--size-icon-small);
                 height: var(--size-icon-small);
+                pointer-events: none;
             }
 
             span {
@@ -91,6 +93,7 @@
                 font-size: 14px;
                 line-height: 1;
                 user-select: none;
+                pointer-events: none;
             }
         }
     }
