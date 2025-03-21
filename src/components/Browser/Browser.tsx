@@ -7,10 +7,10 @@ import { FaArrowRight } from "react-icons/fa6";
 import { MdOutlineRefresh } from "react-icons/md";
 import { TbPlant2 } from "react-icons/tb";
 
-function Browser() {
-    const [searchInputData, setSearchInputData] = useState('https://www.google.com/webhp?igu=1');
+function Browser({ initialUrl = 'https://www.google.com/webhp?igu=1'}: { initialUrl: string}) {
+    const [searchInputData, setSearchInputData] = useState(initialUrl);
     const [isInputClicked, setIsInputClicked] = useState(false);
-    const [url, setUrl] = useState('https://www.google.com/webhp?igu=1');
+    const [url, setUrl] = useState(initialUrl);
     const [iframeKey, setIframeKey] = useState(0);
 
     const [history, setHistory] = useState<string[]>([url]);
