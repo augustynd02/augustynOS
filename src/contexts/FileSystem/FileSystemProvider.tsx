@@ -4,6 +4,7 @@ import { FileSystem } from "../../types/FileSystem";
 
 import createFolder from "../../utils/createFolder";
 import createFile from "../../utils/createFile";
+import createBrowser from "../../utils/createBrowser";
 import { Folder } from "../../types/Folder";
 
 const defaultFileSystem: FileSystem = createFolder('root', "Root", [
@@ -18,6 +19,7 @@ const defaultFileSystem: FileSystem = createFolder('root', "Root", [
             createFile("nestedfile1", "Nested file 1")
         ]),
         createFile("browser", "Browser", "browser", "https://cdn-icons-png.freepik.com/512/4387/4387430.png"),
+        createBrowser('browser', 'aspdevs', '', 'https://aspdevs.vercel.app'),
         createFile("file1", "Test file 1"),
         createFile("file2", "Test file 2"),
     ]),

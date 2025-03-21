@@ -89,7 +89,7 @@ function Window({ app }: { app: Application }) {
             </div>
             <div className={styles.content}>
                 { isFolder(app.file) ? <Folder file={app.file} appId={app.id} /> : null }
-                { app.file.type == "browser" ? <Browser /> : null }
+                { app.file.type == "browser" ? <Browser initialUrl={app.file.initialUrl} /> : null }
             </div>
 
             {directions.map((dir) => (
