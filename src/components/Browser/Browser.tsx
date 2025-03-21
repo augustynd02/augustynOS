@@ -4,16 +4,18 @@ import { FaArrowRight } from "react-icons/fa6";
 import { MdOutlineRefresh } from "react-icons/md";
 import { TbPlant2 } from "react-icons/tb";
 
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef } from 'react';
 
 import { tlds } from '../../constants/tlds';
-import { RiInfraredThermometerFill } from 'react-icons/ri';
 
 function Browser() {
     const [searchInputData, setSearchInputData] = useState('https://www.google.com/webhp?igu=1');
     const [isInputClicked, setIsInputClicked] = useState(false);
     const [url, setUrl] = useState('https://www.google.com/webhp?igu=1');
     const [iframeKey, setIframeKey] = useState(0);
+
+    const [history, setHistory] = useState<string[]>([url]);
+    const [historyIndex, setHistoryIndex] = useState(1);
 
     const searchInputRef = useRef<HTMLInputElement>(null);
     const iframeRef = useRef<HTMLIFrameElement>(null);
@@ -34,6 +36,8 @@ function Browser() {
 
                 newUrl = isDirectLink ? `https://${searchInputData}` : `https://www.google.com/search?igu=1&q=${searchInputData}`;
 
+                setHistory(prev => [...prev, newUrl]);
+                setHistoryIndex(prev => prev + 1);
                 setUrl(newUrl);
                 setSearchInputData(newUrl);
             }
@@ -57,7 +61,13 @@ function Browser() {
     }
 
     const handleBack = () => {
+        setUrl(history[historyIndex - 2]);
+        setHistoryIndex(prev => prev - 1);
+    }
 
+    const handleForward = () => {
+        setUrl(history[historyIndex]);
+        setHistoryIndex(prev => prev + 1);
     }
 
     const handleRefresh = () => {
@@ -67,10 +77,10 @@ function Browser() {
     return (
         <div className={styles.browserContainer}>
             <div className={styles.actionBar}>
-                <button onClick={handleBack}>
+                <button onClick={handleBack} disabled={historyIndex === 1}>
                     <FaArrowLeft />
                 </button>
-                <button>
+                <button onClick={handleForward} disabled={history[historyIndex] === undefined}>
                     <FaArrowRight />
                 </button>
                 <button onClick={handleRefresh}>
