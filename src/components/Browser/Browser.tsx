@@ -1,12 +1,11 @@
+import React, { useState, useRef } from 'react';
+import { tlds } from '../../constants/tlds';
 import styles from './Browser.module.scss';
+
 import { FaArrowLeft } from "react-icons/fa6";
 import { FaArrowRight } from "react-icons/fa6";
 import { MdOutlineRefresh } from "react-icons/md";
 import { TbPlant2 } from "react-icons/tb";
-
-import React, { useState, useRef } from 'react';
-
-import { tlds } from '../../constants/tlds';
 
 function Browser() {
     const [searchInputData, setSearchInputData] = useState('https://www.google.com/webhp?igu=1');
@@ -24,7 +23,7 @@ function Browser() {
         setSearchInputData(e.target.value);
     }
 
-    const handleUpdateUrl = async (e) => {
+    const handleUpdateUrl = async (e: React.KeyboardEvent) => {
         if (document.activeElement === searchInputRef.current) {
             if (e.key === 'Enter') {
                 let isDirectLink = false;
@@ -38,15 +37,10 @@ function Browser() {
 
                 setHistory(prev => [...prev, newUrl]);
                 setHistoryIndex(prev => prev + 1);
-                setUrl(newUrl);
                 setSearchInputData(newUrl);
+                setUrl(newUrl);
             }
         }
-    }
-
-    const handleBookmarkClick = (url: string) => {
-        setUrl(url);
-        setSearchInputData(url);
     }
 
     const handleInputClick = () => {
@@ -58,6 +52,19 @@ function Browser() {
 
     const handleBlur = () => {
         setIsInputClicked(false);
+    }
+
+    const handleBookmarkClick = (e: React.MouseEvent) => {
+        const target = e.target as HTMLElement;
+        const bookmarkUrl = target.getAttribute('data-url');
+
+        if (bookmarkUrl) {
+            setUrl(bookmarkUrl);
+            setSearchInputData(bookmarkUrl);
+            setHistory(prev => [...prev, bookmarkUrl]);
+            setHistoryIndex(prev => prev + 1);
+        }
+
     }
 
     const handleBack = () => {
@@ -86,21 +93,25 @@ function Browser() {
                 <button onClick={handleRefresh}>
                     <MdOutlineRefresh />
                 </button>
-                <input type="text" value={searchInputData} onChange={handleInputChange} ref={searchInputRef} onKeyDown={handleUpdateUrl} onClick={handleInputClick} onBlur={handleBlur}/>
+                <input
+                    type="text"
+                    value={searchInputData}
+                    onChange={handleInputChange}
+                    ref={searchInputRef}
+                    onKeyDown={handleUpdateUrl}
+                    onClick={handleInputClick}
+                    onBlur={handleBlur}
+                />
             </div>
             <div className={styles.bookmarksBar}>
-                <div className={styles.bookmark} onClick={() => { handleBookmarkClick('https://aspdevs.vercel.app')}}>
+                <button className={styles.bookmark} onClick={handleBookmarkClick} data-url="https://aspdevs.vercel.app">
                     <TbPlant2 />
                     <span>aspdevs</span>
-                </div>
-                <div className={styles.bookmark} onClick={() => { handleBookmarkClick('https://sk-beryl.vercel.app')}}>
+                </button>
+                <button className={styles.bookmark} onClick={handleBookmarkClick} data-url="https://sk-beryl.vercel.app">
                     <TbPlant2 />
                     <span>SK</span>
-                </div>
-                <div className={styles.bookmark}>
-                    <TbPlant2 />
-                    <span>aspdevs</span>
-                </div>
+                </button>
             </div>
             <div className={styles.content}>
                 <iframe key={iframeKey} src={url} ref={iframeRef}></iframe>
