@@ -17,7 +17,7 @@ const defaultFileSystem: FileSystem = createFolder('root', "Root", [
             ]),
             createFile("nestedfile1", "Nested file 1")
         ]),
-        createFile("browser", "Browser", "browser"),
+        createFile("browser", "Browser", "browser", "https://cdn-icons-png.freepik.com/512/4387/4387430.png"),
         createFile("file1", "Test file 1"),
         createFile("file2", "Test file 2"),
     ]),
