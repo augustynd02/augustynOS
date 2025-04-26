@@ -6,8 +6,9 @@ import { FaArrowLeft } from "react-icons/fa6";
 import { FaArrowRight } from "react-icons/fa6";
 import { MdOutlineRefresh } from "react-icons/md";
 import { TbPlant2 } from "react-icons/tb";
+import { IoGitNetworkOutline } from 'react-icons/io5';
 
-function Browser({ initialUrl = 'https://www.google.com/webhp?igu=1'}: { initialUrl: string}) {
+function Browser({ initialUrl = 'https://www.google.com/webhp?igu=1' }: { initialUrl: string }) {
     const [searchInputData, setSearchInputData] = useState(initialUrl);
     const [isInputClicked, setIsInputClicked] = useState(false);
     const [url, setUrl] = useState(initialUrl);
@@ -104,6 +105,10 @@ function Browser({ initialUrl = 'https://www.google.com/webhp?igu=1'}: { initial
                 />
             </div>
             <div className={styles.bookmarksBar}>
+                <button className={styles.bookmark} onClick={handleBookmarkClick} data-url="https://syncspace-cyan.vercel.app/">
+                    <IoGitNetworkOutline style={{ color: '#660066' }}/>
+                    <span>syncspace</span>
+                </button>
                 <button className={styles.bookmark} onClick={handleBookmarkClick} data-url="https://aspdevs.vercel.app">
                     <TbPlant2 />
                     <span>aspdevs</span>

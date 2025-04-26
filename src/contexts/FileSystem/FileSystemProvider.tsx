@@ -20,6 +20,7 @@ const defaultFileSystem: FileSystem = createFolder('root', "Root", [
         ]),
         createFile("browser", "Browser", "browser", "https://cdn-icons-png.freepik.com/512/4387/4387430.png"),
         createBrowser('browser', 'aspdevs', '', 'https://aspdevs.vercel.app'),
+        createBrowser('browser', 'syncspace', '', 'https://syncspace-cyan.vercel.app/'),
         createFile("file1", "Test file 1"),
         createFile("file2", "Test file 2"),
     ]),
