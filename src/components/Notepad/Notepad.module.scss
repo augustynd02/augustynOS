@@ -7,6 +7,7 @@
     background-color: white;
 
     .actions {
+        position: relative;
         height: 20px;
         display: flex;
         align-items: center;
@@ -14,25 +15,58 @@
         border-bottom: 2px solid rgb(238, 238, 238);
         font-size: 13px;
 
-        span {
-            height: 100%;
-            user-select: none;
-
-            line-height: 1.4;
-
-            padding: 0 0.5rem;
-            color: var(--color-text-dark);
+        .action {
             margin-top: 1px;
+            height: 100%;
+            position: relative;
 
-            &:hover {
-                background-color: rgba(205, 237, 255, 0.675);
-                outline: 1px solid rgba(140, 206, 245, 0.675);
-            }
+            span {
+                height: 100%;
+                user-select: none;
 
-            &:first-letter {
-                text-decoration: underline;
+                line-height: 1.4;
+
+                padding: 0 0.5rem;
+                color: var(--color-text-dark);
+
+                &:hover {
+                    background-color: rgba(205, 237, 255, 0.675);
+                    outline: 1px solid rgba(140, 206, 245, 0.675);
+                }
+
+                &:first-letter {
+                    text-decoration: underline;
+                }
             }
         }
+        .dropdown {
+            padding: 2px;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: rgb(240, 240, 240);
+            border: 1px solid #ccc;
+            box-shadow: rgb(131, 131, 131) 2px 2px 2px;
+            z-index: 10;
+            min-width: 225px;
+
+            .dropdownItem {
+                display: flex;
+                align-items: center;
+                padding: 6px 1rem 6px 1.5rem;
+                cursor: pointer;
+                color: var(--color-text-dark);
+
+                &:hover {
+                    background-color: rgba(140, 206, 245, 0.675);
+                }
+
+                .shortcut {
+                    margin-left: auto;
+                }
+            }
+        }
+
     }
 
     textarea {

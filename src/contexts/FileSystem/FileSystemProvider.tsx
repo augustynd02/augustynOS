@@ -35,9 +35,32 @@ export default function FileSystemProvider({ children } : { children: React.Reac
     const getFolder = (id: string): Folder | undefined => {
         return fileSystem.children.find((item) => item.id === id) as Folder;
     };
+    const updateFileById = (id: string, updateFn: (file: any) => any) => {
+        const fsCopy = structuredClone(fileSystem);
+
+        const updateFile = (children: any[]): boolean => {
+            for(let i = 0; i < children.length; i++) {
+                const item = children[i];
+                if (item.id === id) {
+                    children[i] = updateFn(item);
+                    return true;
+                }
+
+                if (item.children && item.children.length > 0) {
+                    if (updateFile(item.children)) {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        };
+
+        updateFile(fsCopy.children);
+        setFileSystem(fsCopy);
+    };
 
     return (
-        <FileSystemContext.Provider value={{fileSystem, getFolder}}>
+        <FileSystemContext.Provider value={{fileSystem, setFileSystem, getFolder, updateFileById}}>
             { children }
         </FileSystemContext.Provider>
     )
