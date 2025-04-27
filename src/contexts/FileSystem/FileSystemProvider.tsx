@@ -4,6 +4,7 @@ import { FileSystem } from "../../types/FileSystem";
 
 import createFolder from "../../utils/createFolder";
 import createFile from "../../utils/createFile";
+import createTextFile from "../../utils/createTextFile";
 import createBrowser from "../../utils/createBrowser";
 import { Folder } from "../../types/Folder";
 
@@ -21,6 +22,8 @@ const defaultFileSystem: FileSystem = createFolder('root', "Root", [
         createFile("browser", "Browser", "browser", "https://cdn-icons-png.freepik.com/512/4387/4387430.png"),
         createBrowser('browser', 'aspdevs', '', 'https://aspdevs.vercel.app'),
         createBrowser('browser', 'syncspace', '', 'https://syncspace-cyan.vercel.app/'),
+        createTextFile('readme', 'README.txt', 'Welcome to my OS Portfolio!\n\nThis is a Windows 10-inspired interface built with React and TypeScript.\n\nFeel free to explore the various applications and functionality.'),
+        createTextFile('todo', 'TODO.txt', '[ ] Complete browser implementation\n[ ] Add more desktop icons\n[ ] Implement start menu\n[x] Create file system\n[ ] Add context menus'),
         createFile("file1", "Test file 1"),
         createFile("file2", "Test file 2"),
     ]),

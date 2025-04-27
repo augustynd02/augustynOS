@@ -1,0 +1,77 @@
+.notepadContainer {
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
+
+    background-color: white;
+
+    .actions {
+        height: 20px;
+        display: flex;
+        align-items: center;
+
+        border-bottom: 2px solid rgb(238, 238, 238);
+        font-size: 13px;
+
+        span {
+            height: 100%;
+            user-select: none;
+
+            line-height: 1.4;
+
+            padding: 0 0.5rem;
+            color: var(--color-text-dark);
+            margin-top: 1px;
+
+            &:hover {
+                background-color: rgba(205, 237, 255, 0.675);
+                outline: 1px solid rgba(140, 206, 245, 0.675);
+            }
+
+            &:first-letter {
+                text-decoration: underline;
+            }
+        }
+    }
+
+    textarea {
+        flex: 1;
+        height: 100%;
+        resize: none;
+        border: none;
+        overflow-y: scroll;
+        font-size: 16px;
+        line-height: 1.2;
+
+        font-family: 'Consolas';
+        letter-spacing: -1px;
+        font-weight: 100;
+
+        &::-webkit-scrollbar {
+            width: 15px;
+        }
+
+        &::-webkit-scrollbar-track {
+            background: rgb(238, 238, 238);
+        }
+
+        &::-webkit-scrollbar-thumb {
+            background: rgb(199, 199, 199);
+        }
+
+        &::-webkit-scrollbar-thumb:hover {
+            background: rgb(160, 160, 160);
+        }
+
+        &:focus {
+            outline: none;
+        }
+    }
+
+    .info {
+        height: 20px;
+        background-color: rgb(238, 238, 238);
+        border-top: 1px solid rgb(199, 199, 199);
+    }
+}

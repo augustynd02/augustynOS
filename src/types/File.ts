@@ -3,4 +3,5 @@ export type File = {
     name: string;
     type: string;
     iconURL?: string;
+    theme?: 'dark' | 'light';
 }
