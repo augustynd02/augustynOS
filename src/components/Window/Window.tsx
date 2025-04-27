@@ -7,6 +7,7 @@ import useWindowResize from '../../hooks/useWindowResize';
 
 import Folder from '../Folder/Folder';
 import Browser from '../Browser/Browser';
+import Notepad from '../Notepad/Notepad';
 
 import {
     VscChromeMinimize,
@@ -23,7 +24,7 @@ type Position = {
 
 const directions = ["up", "right", "down", "left", "ne", "se", "sw", "nw"];
 
-function Window({ app }: { app: Application }) {
+function Window({ app, theme = 'dark' }: { app: Application, theme: 'light' | 'dark' | undefined }) {
     const [dimensions, setDimensions] = useState({ width: 500, height: 500 });
     const [position, setPosition] = useState<Position>({ x: 0, y: 0 });
     const [isMaximized, setIsMaximized] = useState(false);
@@ -61,7 +62,7 @@ function Window({ app }: { app: Application }) {
         <div
             id={app.id}
             data-testid="window"
-            className={`${styles.window} ${isMaximized ? styles.maximized : ""} ${app.isMinimized ? styles.minimized : ""}`}
+            className={`${styles.window} ${styles[theme]} ${isMaximized ? styles.maximized : ""} ${app.isMinimized ? styles.minimized : ""}`}
             style={{
                 width: `${dimensions.width}px`,
                 height: `${dimensions.height}px`,
@@ -90,6 +91,7 @@ function Window({ app }: { app: Application }) {
             <div className={styles.content}>
                 { isFolder(app.file) ? <Folder file={app.file} appId={app.id} /> : null }
                 { app.file.type == "browser" ? <Browser initialUrl={app.file.initialUrl} /> : null }
+                { app.file.type == 'textfile' ? <Notepad initialContent={app.file.content} /> : null}
             </div>
 
             {directions.map((dir) => (

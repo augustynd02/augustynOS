@@ -11,6 +11,32 @@
 
     z-index: 3;
 
+    &.light .bar {
+        background-color: white;
+        color: var(--color-text-dark);
+
+        .actions {
+            button {
+                &:hover {
+                    background-color: rgb(230, 230, 230);
+                }
+                &.close {
+                    &:hover {
+                        color: var(--color-text);
+                        background-color: var(--color-error);
+                    }
+                    &:active:hover {
+                        background-color: var(--color-error-action);
+                    }
+                }
+            }
+        }
+    }
+
+    &.dark .bar {
+        background-color: var(--color-primary-500);
+    }
+
     .content {
         flex: 1;
         overflow: hidden;
@@ -18,7 +44,7 @@
 }
 
 .bar {
-    height: 35px;
+    height: 30px;
 
     display: flex;
     align-items: center;
@@ -56,7 +82,7 @@
         height: 100%;
         width: 50px;
         flex: 1;
-        color: var(--color-text);
+        color: inherit;
 
 
         &:hover {

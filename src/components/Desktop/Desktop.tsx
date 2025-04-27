@@ -64,7 +64,7 @@ function Desktop() {
             }
             {
                 openApps.map(app => {
-                    return <Window key={app.id} app={app} />
+                    return <Window key={app.id} app={app} theme={app.file.theme}/>
                 })
             }
         </div>
