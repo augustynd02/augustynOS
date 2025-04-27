@@ -6,7 +6,7 @@ const createTextFile = (id: string, name: string, content: string = ''): TextFil
         name: name,
         theme: 'light',
         type: "textfile",
-        iconURL: "https://learn.microsoft.com/en-us/windows/win32/uxguide/images/vis-icons-image5.png",
+        iconURL: "https://static.wikia.nocookie.net/logopedia/images/c/c4/Notepad_Vista_10.png",
         content: content
     }
 }
