@@ -16,6 +16,7 @@ import {
     VscChromeClose
 } from "react-icons/vsc";
 import isFolder from '../../utils/isFolder';
+import ImageFile from '../ImageFile/ImageFile';
 
 type Position = {
     x: number;
@@ -93,6 +94,7 @@ function Window({ app, theme = 'dark' }: { app: Application, theme: 'light' | 'd
                 { isFolder(app.file) ? <Folder file={app.file} appId={app.id} /> : null }
                 { app.file.type == "browser" ? <Browser initialUrl={app.file.initialUrl} /> : null }
                 { app.file.type == 'textfile' ? <Notepad file={app.file} /> : null}
+                { app.file.type == 'imagefile' ? <ImageFile file={app.file} /> : null}
             </div>
 
             {directions.map((dir) => (
