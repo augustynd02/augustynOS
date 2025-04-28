@@ -28,6 +28,7 @@ function Window({ app, theme = 'dark' }: { app: Application, theme: 'light' | 'd
     const [dimensions, setDimensions] = useState({ width: 500, height: 500 });
     const [position, setPosition] = useState<Position>({ x: 0, y: 0 });
     const [isMaximized, setIsMaximized] = useState(false);
+    console.log(app);
 
     const { closeApp, toggleMinimize } = useContext(AppContext);
 
@@ -91,7 +92,7 @@ function Window({ app, theme = 'dark' }: { app: Application, theme: 'light' | 'd
             <div className={styles.content}>
                 { isFolder(app.file) ? <Folder file={app.file} appId={app.id} /> : null }
                 { app.file.type == "browser" ? <Browser initialUrl={app.file.initialUrl} /> : null }
-                { app.file.type == 'textfile' ? <Notepad initialContent={app.file.content} /> : null}
+                { app.file.type == 'textfile' ? <Notepad file={app.file} /> : null}
             </div>
 
             {directions.map((dir) => (

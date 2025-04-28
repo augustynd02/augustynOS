@@ -2,17 +2,33 @@ import React, { useState, useRef, useEffect, useContext } from 'react';
 import styles from './Notepad.module.scss';
 import { TextFile } from '../../types/TextFile';
 import FileSystemContext from '../../contexts/FileSystem/FileSystemContext';
+import AppContext from '../../contexts/App/AppContext';
 
-function Notepad({file }: { file: TextFile }) {
+function Notepad({ file }: { file: TextFile }) {
     const [content, setContent] = useState<string>(file.content);
     const [hasChanged, setHasChanged] = useState<boolean>(file.content !== content);
     const [fileMenuOpen, setFileMenuOpen] = useState<boolean>(false);
     const { updateFileById } = useContext(FileSystemContext);
+    const { editAppName, closeApp } = useContext(AppContext);
     const fileMenuRef = useRef<HTMLDivElement>(null);
+
+    // TODO: prompt user about saving the file if window is being closed
 
     useEffect(() => {
         setHasChanged(file.content !== content);
     }, [content, file.content]);
+
+    useEffect(() => {
+        if (hasChanged) {
+            if (!file.name.startsWith('*')) {
+                editAppName(file.id, `* ${file.name}`);
+            }
+        } else {
+            if (file.name.startsWith('* ')) {
+                editAppName(file.id, file.name.substring(2));
+            }
+        }
+    }, [hasChanged, file.id, file.name, editAppName]);
 
     const handleTextareaChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
         setContent(e.target.value);
@@ -59,6 +75,7 @@ function Notepad({file }: { file: TextFile }) {
                             <div className={styles.dropdownItem} onClick={(e) => {
                                 e.stopPropagation();
                                 setFileMenuOpen(false);
+                                closeApp(file.id)
                             }}>
                                 Exit
                             </div>
