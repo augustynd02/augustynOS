@@ -5,6 +5,8 @@ import { TbPlant2 } from "react-icons/tb";
 import { BsChatSquare } from "react-icons/bs";
 import { Application } from '../../types/Application';
 import ActionsContext from "../../contexts/Actions/ActionsContext";
+import { IoIosMenu, IoIosPower } from 'react-icons/io';
+import { FaUserCircle } from 'react-icons/fa';
 
 type Action = {
     name: string;
@@ -45,7 +47,7 @@ function Taskbar() {
 
     return (
         <div data-testid="taskbar" id="taskbar" className={styles.taskbar} onContextMenu={(e) => handleOpenModal(e, actions)}>
-            <StartMenu />
+            <StartMenuButton />
             <div className={styles.tabs} data-testid="tabs">
                 {openApps.map(app => {
                     return <Tab key={app.id} app={app} toggleMinimize={toggleMinimize} />
@@ -75,12 +77,35 @@ function Tab({ app, toggleMinimize }: { app: Application, toggleMinimize: (id: s
     )
 }
 
-function StartMenu() {
+function StartMenuButton() {
+    const [isMenuShown, setIsMenuShown] = useState(false);
+
     return (
-        <div className={styles.startMenu} data-testid="startmenu" id="startmenu">
-            <div className={styles.logo}>
+        <div className={styles.startMenuContainer} data-testid="startmenu" id="startmenu" onClick={() => setIsMenuShown(!isMenuShown)}>
+            <div className={`${styles.logo} ${isMenuShown ? styles.active : ''}`}>
                 <TbPlant2 />
             </div>
+            { isMenuShown && (
+                <div className={styles.startMenu}>
+                    <div className={styles.actions}>
+                        <button>
+                            <IoIosMenu />
+                            <span>START</span>
+                        </button>
+                        <button>
+                            <FaUserCircle />
+                            <span>Dominik Augustyn</span>
+                        </button>
+                        <button onClick={() => window.location.reload()}>
+                            <IoIosPower />
+                            <span>Power</span>
+                        </button>
+                    </div>
+                    <div className={styles.items}>
+
+                    </div>
+                </div>
+            )}
         </div>
     )
 }

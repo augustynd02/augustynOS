@@ -8,27 +8,128 @@
 
     background-color: var(--color-primary-900);
 
-    .startMenu {
-        @include globals.center;
+    .startMenuContainer {
+        position: relative;
         width: var(--taskbar-height);
 
-        &:hover {
-            background-color: var(--color-primary-500);
-        }
-        &:hover .logo {
-            color: var(--color-accent);
-        }
+        @include globals.center;
 
         .logo {
-            width: 60%;
+            width: 100%;
+            height: 100%;
 
             @include globals.center;
 
             color: white;
 
+            &:hover {
+                background-color: var(--color-primary-500);
+                color: var(--color-accent);
+            }
+
+            &.active {
+                background-color: var(--color-primary-200);
+                color: var(--color-text);
+
+                &:hover {
+                    color: var(--color-accent);
+                }
+            }
+
             svg {
                 width: var(--size-icon-medium);
                 height: auto;
+            }
+        }
+
+        .startMenu {
+            position: absolute;
+            bottom: var(--taskbar-height);
+            left: 0;
+            min-height: 0;
+            min-width: 300px;
+
+            display: flex;
+
+            background-color: var(--color-primary-500);
+            animation: slide-from-bottom 0.2s forwards;
+
+            z-index: 9999;
+
+            @keyframes slide-from-bottom {
+                0% {
+                    opacity: 0;
+                    height: 0;
+                }
+
+                100% {
+                    opacity: 0.95;
+                    height: 400px;
+                }
+            }
+
+            .actions {
+                width: var(--taskbar-height);
+                overflow: hidden;
+
+                display: flex;
+                flex-direction: column;
+
+                transition: width 0.2s;
+
+                &:hover {
+                    background-color: var(--color-primary-300);
+                    box-shadow: rgba(0, 0, 0, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+                    width: 200px;
+                }
+
+                button {
+                    position: relative;
+                    height: var(--taskbar-height);
+                    width: 100%;
+
+                    &:first-child {
+                        margin-bottom: auto;
+
+                        span {
+                            font-weight: 700;
+                            font-size: 16px;
+                        }
+                    }
+
+                    &:hover {
+                        background-color: var(--color-primary-200);
+                    }
+
+                    @include globals.center;
+                    svg {
+                        margin-right: auto;
+                        margin-left: 10px;
+                        flex-shrink: 0;
+                        width: 25px;
+                        height: 25px;
+                        color: var(--color-text);
+                    }
+
+                    span {
+                        position: absolute;
+                        left: calc(var(--taskbar-height) + 8px);
+                        top: 50%;
+                        transform: translateY(-50%);
+                        white-space: nowrap;
+
+                        opacity: 1;
+                        pointer-events: none;
+
+                        color: var(--color-text);
+                        font-size: 14px;
+                      }
+                }
+
+            }
+
+            .items {
+                flex: 1;
             }
         }
     }
