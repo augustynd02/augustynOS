@@ -93,7 +93,7 @@ function Notepad({ file }: { file: TextFile }) {
                 onChange={handleTextareaChange}
             />
             <div className={styles.info}>
-                {hasChanged && <span className={styles.unsavedIndicator}>*</span>}
+                <span>{content.length} characters</span>
             </div>
         </div>
     )
