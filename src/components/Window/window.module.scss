@@ -34,7 +34,28 @@
     }
 
     &.dark .bar {
-        background-color: var(--color-primary-500);
+        background-color: black;
+
+        .actions {
+            button {
+                &:hover {
+                    background-color: var(--color-primary-500);
+                }
+
+                &:active:hover {
+                    background-color: var(--color-primary-300);
+                }
+                &.close {
+                    &:hover {
+                        color: var(--color-text);
+                        background-color: var(--color-error);
+                    }
+                    &:active:hover {
+                        background-color: var(--color-error-action);
+                    }
+                }
+            }
+        }
     }
 
     .content {
@@ -83,15 +104,6 @@
         width: 50px;
         flex: 1;
         color: inherit;
-
-
-        &:hover {
-            background-color: var(--color-primary-500);
-        }
-
-        &:active:hover {
-            background-color: var(--color-primary-300);
-        }
 
         svg {
             width: 100%;
