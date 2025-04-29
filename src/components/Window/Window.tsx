@@ -16,6 +16,9 @@ import {
     VscChromeClose
 } from "react-icons/vsc";
 import isFolder from '../../utils/isFolder';
+import isTextFile from '../../utils/isTextFile';
+import isImageFile from '../../utils/isImageFile';
+import isBrowserFile from '../../utils/isBrowserFile';
 import ImageFile from '../ImageFile/ImageFile';
 
 type Position = {
@@ -25,7 +28,7 @@ type Position = {
 
 const directions = ["up", "right", "down", "left", "ne", "se", "sw", "nw"];
 
-function Window({ app, theme = 'dark' }: { app: Application, theme: 'light' | 'dark' | undefined }) {
+function Window({ app, theme = 'dark' }: { app: Application, theme?: 'light' | 'dark' | undefined }) {
     const [dimensions, setDimensions] = useState({ width: 500, height: 500 });
     const [position, setPosition] = useState<Position>({ x: 0, y: 0 });
     const [isMaximized, setIsMaximized] = useState(false);
@@ -92,9 +95,9 @@ function Window({ app, theme = 'dark' }: { app: Application, theme: 'light' | 'd
             </div>
             <div className={styles.content}>
                 { isFolder(app.file) ? <Folder file={app.file} appId={app.id} /> : null }
-                { app.file.type == "browser" ? <Browser initialUrl={app.file.initialUrl} /> : null }
-                { app.file.type == 'textfile' ? <Notepad file={app.file} /> : null}
-                { app.file.type == 'imagefile' ? <ImageFile file={app.file} /> : null}
+                { isBrowserFile(app.file) ? <Browser initialUrl={app.file.initialUrl} /> : null }
+                { isTextFile(app.file) ? <Notepad file={app.file} /> : null}
+                { isImageFile(app.file) ? <ImageFile file={app.file} /> : null}
             </div>
 
             {directions.map((dir) => (

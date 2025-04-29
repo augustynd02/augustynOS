@@ -94,9 +94,9 @@
 
     .content {
         padding: 6px 12px;
-        flex: 1;
 
         display: flex;
+        flex-wrap: wrap;
         gap: var(--spacing-small);
         background-color: var(--color-primary-500);
 
@@ -109,6 +109,7 @@
     }
 
     .info {
+        margin-top: auto;
         padding: 4px 12px;
 
         background-color: var(--color-primary-300);

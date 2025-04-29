@@ -3,11 +3,9 @@ import DesktopIcon from '../DesktopIcon/DesktopIcon'
 import React, { useContext } from 'react';
 import AppContext from '../../contexts/App/AppContext';
 import Window from '../Window/Window';
-import { Icon } from '../../types/Icon';
 import ActionsContext from "../../contexts/Actions/ActionsContext";
 import { Action } from "../../types/Action";
 import FileSystemContext from "../../contexts/FileSystem/FileSystemContext";
-import { Folder } from '../../types/Folder';
 
 const actions: Action[] = [
     {

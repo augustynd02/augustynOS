@@ -8,7 +8,7 @@ import { MdOutlineRefresh } from "react-icons/md";
 import { TbPlant2 } from "react-icons/tb";
 import { IoGitNetworkOutline } from 'react-icons/io5';
 
-function Browser({ initialUrl = 'https://www.google.com/webhp?igu=1' }: { initialUrl: string }) {
+function Browser({ initialUrl = 'https://www.google.com/webhp?igu=1' }: { initialUrl?: string }) {
     const [searchInputData, setSearchInputData] = useState(initialUrl);
     const [isInputClicked, setIsInputClicked] = useState(false);
     const [url, setUrl] = useState(initialUrl);
