@@ -1,6 +1,6 @@
 import styles from './desktop.module.scss'
 import DesktopIcon from '../DesktopIcon/DesktopIcon'
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import AppContext from '../../contexts/App/AppContext';
 import Window from '../Window/Window';
 import ActionsContext from "../../contexts/Actions/ActionsContext";
@@ -10,10 +10,6 @@ import FileSystemContext from "../../contexts/FileSystem/FileSystemContext";
 const actions: Action[] = [
     {
         name: "Refresh",
-        cb: () => { console.log("refresh clicked") },
-    },
-    {
-        name: "Test",
         cb: () => { console.log("refresh clicked") },
     },
     {
@@ -31,14 +27,6 @@ const actions: Action[] = [
             }
         ]
     },
-    {
-        name: "Test2",
-        cb: () => { console.log("refresh clicked") },
-    },
-    {
-        name: "Test3",
-        cb: () => { console.log("refresh clicked") },
-    },
 ]
 
 function Desktop() {
@@ -49,15 +37,48 @@ function Desktop() {
 
     const desktopItems = desktopFolder?.children ?? [];
 
+    const [iconPositions, setIconPositions] = useState<IconPosition[]>(
+        desktopItems.map((_, index) => ({
+            gridColumn: 1,
+            gridRow: index + 1
+        }))
+    );
+
     const handleDragOver = (e: React.DragEvent) => {
         e.preventDefault();
     }
 
+    const handleSwapPositions = (draggedIndex: number, newPosition: { gridColumn: number, gridRow: number}): void => {
+        setIconPositions(prevPositions => {
+            const newPositions = [...prevPositions];
+
+            const targetIndex = newPositions.findIndex(
+                pos => pos.gridColumn === newPosition.gridColumn && pos.gridRow === newPosition.gridRow
+            );
+
+            if (targetIndex !== -1 && targetIndex !== draggedIndex) {
+                const draggedPosition = { ...newPositions[draggedIndex] };
+                newPositions[draggedIndex] = { ...newPosition };
+                newPositions[targetIndex] = { ...draggedPosition };
+            } else {
+                newPositions[draggedIndex] = { ...newPosition };
+            }
+
+            return newPositions;
+        });
+    };
+
     return (
         <div className={styles.desktop} data-testid="desktop" onDragOver={handleDragOver} onContextMenu={(e) => handleOpenModal(e, actions)}>
             {
-                desktopItems.map(file => {
-                    return <DesktopIcon key={file.id} file={file} />
+                desktopItems.map((file, index) => {
+                    return <DesktopIcon
+                        key={file.id}
+                        file={file}
+                        index={index}
+                        position={iconPositions[index]}
+                        onSwapPositions={handleSwapPositions}
+                    />
                 })
             }
             {

@@ -4,31 +4,62 @@ import AppContext from '../../contexts/App/AppContext';
 import { File } from '../../types/File';
 import createApp from '../../utils/createApp';
 
-function DesktopIcon({ file }: { file: File }) {
+
+function DesktopIcon({
+    file,
+    index = 0,
+    position,
+    onSwapPositions
+}: {
+    file: File,
+    index?: number,
+    position?: { gridRow: number, gridColumn: number},
+    onSwapPositions?: (draggedIndex: number, newPosition: { gridRow: number, gridColumn: number}) => void
+}) {
     const { startApp } = useContext(AppContext);
+
     const handleDoubleClick = () => {
-        // TODO: maybe link the IDs of icon and corresponding app
         const app = createApp(file);
         startApp(app);
     }
+
     const handleDragEnd = (e: React.DragEvent) => {
         // Desktop grid dimensions: 80x80
-        const target = e.target as HTMLLIElement;
-
         const gridSize = 80;
         const gapSize = 16;
 
         const gridColumn = Math.ceil((e.clientX - 1 * (e.clientX / gridSize)) / gridSize);
         const gridRow = Math.ceil((e.clientY - (gapSize * Math.floor(e.clientY / gridSize))) / gridSize);
 
-        target.style.gridColumnStart = gridColumn.toString();
-        target.style.gridRowStart = gridRow.toString();
+        if (onSwapPositions) {
+            onSwapPositions(index, { gridColumn, gridRow });
+        } else {
+            const target = e.target as HTMLLIElement;
+            target.style.gridColumnStart = gridColumn.toString();
+            target.style.gridRowStart = gridRow.toString();
+        }
     }
+
     return (
-        <li className={styles.desktopIcon} draggable="true" onDoubleClick={handleDoubleClick} onDragEnd={handleDragEnd} data-testid="desktopicon">
+        <li
+            className={styles.desktopIcon}
+            draggable="true"
+            onDoubleClick={handleDoubleClick}
+            onDragEnd={handleDragEnd}
+            data-testid="desktopicon"
+            style={{
+                gridColumnStart: position ? position.gridColumn : (index === 0 ? 1 : undefined),
+                gridRowStart: position ? position.gridRow : (index === 0 ? 1 : undefined)
+            }}
+        >
             <button role="button">
                 <figure>
-                    <img src={file.iconURL} alt={`${file.name} icon`} className={styles.icon} draggable="false" />
+                    <img
+                        src={file.iconURL}
+                        alt={`${file.name} icon`}
+                        className={styles.icon}
+                        draggable="false"
+                    />
                     <figcaption className={styles.name}>
                         {file.name}
                     </figcaption>
