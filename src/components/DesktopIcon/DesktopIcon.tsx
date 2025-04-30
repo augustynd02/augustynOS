@@ -4,6 +4,10 @@ import AppContext from '../../contexts/App/AppContext';
 import { File } from '../../types/File';
 import createApp from '../../utils/createApp';
 
+interface IconPosition {
+    gridRow: number;
+    gridColumn: number;
+}
 
 function DesktopIcon({
     file,
@@ -13,8 +17,8 @@ function DesktopIcon({
 }: {
     file: File,
     index?: number,
-    position?: { gridRow: number, gridColumn: number},
-    onSwapPositions?: (draggedIndex: number, newPosition: { gridRow: number, gridColumn: number}) => void
+    position?: IconPosition,
+    onSwapPositions?: (draggedIndex: number, newPosition: IconPosition) => void
 }) {
     const { startApp } = useContext(AppContext);
 

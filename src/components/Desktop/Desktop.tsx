@@ -29,6 +29,11 @@ const actions: Action[] = [
     },
 ]
 
+interface IconPosition {
+    gridRow: number;
+    gridColumn: number;
+}
+
 function Desktop() {
     const { openApps } = useContext(AppContext);
     const { handleOpenModal } = useContext(ActionsContext);
@@ -48,7 +53,7 @@ function Desktop() {
         e.preventDefault();
     }
 
-    const handleSwapPositions = (draggedIndex: number, newPosition: { gridColumn: number, gridRow: number}): void => {
+    const handleSwapPositions = (draggedIndex: number, newPosition: IconPosition): void => {
         setIconPositions(prevPositions => {
             const newPositions = [...prevPositions];
 
