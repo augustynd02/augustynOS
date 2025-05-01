@@ -32,7 +32,6 @@ function Window({ app, theme = 'dark' }: { app: Application, theme?: 'light' | '
     const [dimensions, setDimensions] = useState({ width: 500, height: 500 });
     const [position, setPosition] = useState<Position>({ x: 0, y: 0 });
     const [isMaximized, setIsMaximized] = useState(false);
-    console.log(app);
 
     const { closeApp, toggleMinimize } = useContext(AppContext);
 
