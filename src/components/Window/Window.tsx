@@ -35,7 +35,7 @@ function Window({ app, theme = 'dark' }: { app: Application, theme?: 'light' | '
             ? { x: window.innerWidth / 2 - dimensions.width / 2, y: window.innerHeight / 2 - dimensions.height / 2 }
             : { x: 0, y: 0 }
     );
-    const [isMaximized, setIsMaximized] = useState(false);
+    const [isMaximized, setIsMaximized] = useState(app.file.type === 'browser');
 
     const { closeApp, toggleMinimize } = useContext(AppContext);
 
