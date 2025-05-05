@@ -30,7 +30,11 @@ const directions = ["up", "right", "down", "left", "ne", "se", "sw", "nw"];
 
 function Window({ app, theme = 'dark' }: { app: Application, theme?: 'light' | 'dark' | undefined }) {
     const [dimensions, setDimensions] = useState({ width: 500, height: 500 });
-    const [position, setPosition] = useState<Position>({ x: 0, y: 0 });
+    const [position, setPosition] = useState<Position>(
+        window // If in browser, calculate the center: if not (for example in testing), set default to x: 0, y: 0
+            ? { x: window.innerWidth / 2 - dimensions.width / 2, y: window.innerHeight / 2 - dimensions.height / 2 }
+            : { x: 0, y: 0 }
+    );
     const [isMaximized, setIsMaximized] = useState(false);
 
     const { closeApp, toggleMinimize } = useContext(AppContext);
