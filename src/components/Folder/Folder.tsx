@@ -1,20 +1,22 @@
-import styles from './Folder.module.scss';
+import { useState, useContext, useEffect } from 'react';
+import { FaArrowLeft, FaArrowRight, FaArrowUp } from 'react-icons/fa6';
+import { BiSolidChevronDown } from 'react-icons/bi';
+import { LiaSearchSolid } from 'react-icons/lia';
 
-import { FaArrowLeft } from "react-icons/fa6";
-import { FaArrowRight } from "react-icons/fa6";
-import { FaArrowUp } from "react-icons/fa6";
-import { BiSolidChevronDown } from "react-icons/bi";
-import { LiaSearchSolid } from "react-icons/lia";
+import styles from './Folder.module.scss';
 import { Folder as FolderType } from '../../types/Folder';
+import AppContext from '../../contexts/App/AppContext';
+import isFolder from '../../utils/isFolder';
 
 import DesktopIcon from '../DesktopIcon/DesktopIcon';
 import FolderIcon from '../FolderIcon/FolderIcon';
-import { useState, useContext, useEffect } from 'react';
-import isFolder from '../../utils/isFolder';
 
-import AppContext from '../../contexts/App/AppContext';
+type Props = {
+    file: FolderType;
+    appId: string;
+};
 
-function Folder({ file, appId }: { file: FolderType, appId: string }) {
+function Folder({ file, appId }: Props) {
     const [currentFolder, setCurrentFolder] = useState(file)
     const [history, setHistory] = useState<FolderType[]>([])
     const [forwardHistory, setForwardHistory] = useState<FolderType[]>([])
