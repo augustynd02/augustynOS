@@ -1,7 +1,12 @@
 import styles from './FolderIcon.module.scss';
 import { Folder as FolderType } from '../../types/Folder';
 
-function FolderIcon({ file, handleOpenFolder }: { file: FolderType, handleOpenFolder: (item: FolderType) => void }) {
+type Props = {
+    file: FolderType;
+    handleOpenFolder: (item: FolderType) => void;
+};
+
+function FolderIcon({ file, handleOpenFolder }: Props) {
     return (
         <li className={styles.desktopIcon} draggable="true" data-testid="foldericon" onDoubleClick={() => { handleOpenFolder(file) }}>
             <button role="button">
