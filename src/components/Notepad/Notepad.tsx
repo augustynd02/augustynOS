@@ -6,29 +6,21 @@ import AppContext from '../../contexts/App/AppContext';
 
 function Notepad({ file }: { file: TextFile }) {
     const [content, setContent] = useState<string>(file.content);
-    const [hasChanged, setHasChanged] = useState<boolean>(file.content !== content);
     const [fileMenuOpen, setFileMenuOpen] = useState<boolean>(false);
+    const originalFileName = file.name.startsWith('* ') ? file.name.slice(2) : file.name;
+
     const { updateFileById } = useContext(FileSystemContext);
     const { editAppName, closeApp } = useContext(AppContext);
     const fileMenuRef = useRef<HTMLDivElement>(null);
 
-    // TODO: prompt user about saving the file if window is being closed
+    // TODO: prompt about saving file when closing
 
     useEffect(() => {
-        setHasChanged(file.content !== content);
-    }, [content, file.content]);
+        const hasChanged = content !== file.content;
+        const expectedName = hasChanged ? `* ${originalFileName}` : originalFileName;
 
-    useEffect(() => {
-        if (hasChanged) {
-            if (!file.name.startsWith('*')) {
-                editAppName(file.id, `* ${file.name}`);
-            }
-        } else {
-            if (file.name.startsWith('* ')) {
-                editAppName(file.id, file.name.substring(2));
-            }
-        }
-    }, [hasChanged, file.id, file.name, editAppName]);
+        editAppName(file.id, expectedName);
+    }, [content, file.content, file.id, originalFileName, editAppName]);
 
     const handleTextareaChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
         setContent(e.target.value);
@@ -36,11 +28,10 @@ function Notepad({ file }: { file: TextFile }) {
 
     const handleSave = (e: React.MouseEvent<HTMLDivElement>) => {
         e.stopPropagation();
-
-        updateFileById(file.id, (fileToUpdate) => {
-            return { ...fileToUpdate, content: content }
-        })
-        setHasChanged(false);
+        updateFileById(file.id, (fileToUpdate) => ({
+            ...fileToUpdate,
+            content: content,
+        }));
         setFileMenuOpen(false);
     };
 
@@ -72,31 +63,29 @@ function Notepad({ file }: { file: TextFile }) {
                                 Save
                                 <p className={styles.shortcut}>Ctrl+S</p>
                             </div>
-                            <div className={styles.dropdownItem} onClick={(e) => {
-                                e.stopPropagation();
-                                setFileMenuOpen(false);
-                                closeApp(file.id)
-                            }}>
+                            <div
+                                className={styles.dropdownItem}
+                                onClick={(e) => {
+                                    e.stopPropagation();
+                                    setFileMenuOpen(false);
+                                    closeApp(file.id);
+                                }}
+                            >
                                 Exit
                             </div>
                         </div>
                     )}
                 </div>
-                <div
-                    className={styles.action}
-                >
+                <div className={styles.action}>
                     <span>Edit</span>
                 </div>
             </div>
-            <textarea
-                value={content}
-                onChange={handleTextareaChange}
-            />
+            <textarea value={content} onChange={handleTextareaChange} />
             <div className={styles.info}>
                 <span>{content.length} characters</span>
             </div>
         </div>
-    )
+    );
 }
 
 export default Notepad;
