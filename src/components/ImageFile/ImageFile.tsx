@@ -25,8 +25,8 @@ export default function ImageFile({ file }: { file: ImageFileType }) {
                 />
             </div>
             <div className={styles.controls}>
-                <button onClick={handleZoomOut}><CiZoomOut /></button>
-                <button onClick={handleZoomIn}><CiZoomIn /></button>
+                <button onClick={handleZoomOut} aria-label='Zoom out'><CiZoomOut /></button>
+                <button onClick={handleZoomIn} aria-label='Zoom in'><CiZoomIn /></button>
             </div>
         </div>
     );
