@@ -5,7 +5,14 @@ type Position = {
     y: number;
 };
 
-function useWindowDrag({ position, setPosition, isMaximized, setIsMaximized }: { position: Position, setPosition: (position: Position) => void, isMaximized: boolean, setIsMaximized: (t: boolean) => void }) {
+type WindowDragProps = {
+    position: Position;
+    setPosition: (position: Position) => void;
+    isMaximized: boolean;
+    setIsMaximized: (isMaximized: boolean) => void;
+}
+
+function useWindowDrag({ position, setPosition, isMaximized, setIsMaximized }: WindowDragProps) {
     const [isDragging, setIsDragging] = useState(false);
     const [initialPosition, setInitialPosition] = useState<Position>({ x: 0, y: 0 });
 
