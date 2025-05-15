@@ -26,6 +26,7 @@ const jestIcon = createImageFile('jest-icon', 'Jest', 'https://cdn.iconscout.com
 
 const defaultFileSystem: FileSystem = createFolder('root', "Root", [
     createFolder("desktop", "Desktop", [
+        createBrowser("browser", "Browser", "", ""),
         createFolder("projects", "Projects", [
             createFolder("syncspace-folder", "syncspace", [
                 createBrowser("syncspace-browser", "syncspace", '', 'https://syncspace-cyan.vercel.app'),
@@ -79,6 +80,30 @@ There is also a custom CMS for admins, allowing for performing CRUD operations o
 
             ]),
 
+            createFolder('landingpages-folder', 'Freelance landing pages', [
+                createFolder('sk', 'Stylist & designer', [
+                    createBrowser('sk-browser', 'Stylist & designer landing page', '', 'https://sylviakozlowska.pl'),
+                    createTextFile('sk-readme', 'README', `This is a paid landing page project for a stylist. I provided progress updates and adapted the design to their
+feedback, ensuring satisfaction. It showcases their portfolio, work and services.`),
+                    createFolder('sk-stack', 'Project stack', [
+                        htmlIcon,
+                        cssIcon,
+                        jsIcon,
+                        viteIcon,
+                    ])
+                ]),
+                createFolder('isabella', 'Nail salon', [
+                    createBrowser('isabella-browser', 'Nail salon landing page', ''),
+                    createTextFile('isabella-readme', 'README', `This is a landing page for a local nail salon, showcasing the offer, gallery, reservation form, etc. Styled based on the client's prefernces, fully responsive. Still waiting for the client to provide text, so placeholders for now.`),
+                    createFolder('isabella-stack', 'Project stack', [
+                        htmlIcon,
+                        cssIcon,
+                        jsIcon,
+                        viteIcon,
+                    ])
+                ])
+            ]),
+
             createFolder('older-folder', 'Older projects', [
                 createTextFile('older-readme', 'README', `Here are some selected older projects from me. Not all, of course - you can check all my work on GitHub. I couldn't host some of these, so be sure to check out the code in the repository`),
                 createFolder('battleship-folder', 'Battleship', [
@@ -130,30 +155,6 @@ There is also a custom CMS for admins, allowing for performing CRUD operations o
                     ])
                 ])
             ]),
-        ]),
-
-        createFolder('landingpages-folder', 'Freelance landing pages', [
-            createFolder('sk', 'Stylist & designer', [
-                createBrowser('sk-browser', 'Stylist & designer landing page', '', 'https://sylviakozlowska.pl'),
-                createTextFile('sk-readme', 'README', `This is a paid landing page project for a stylist. I provided progress updates and adapted the design to their
-feedback, ensuring satisfaction. It showcases their portfolio, work and services.`),
-                createFolder('sk-stack', 'Project stack', [
-                    htmlIcon,
-                    cssIcon,
-                    jsIcon,
-                    viteIcon,
-                ])
-            ]),
-            createFolder('isabella', 'Nail salon', [
-                createBrowser('isabella-browser', 'Nail salon landing page', ''),
-                createTextFile('isabella-readme', 'README', `This is a landing page for a local nail salon, showcasing the offer, gallery, reservation form, etc. Styled based on the client's prefernces, fully responsive. Still waiting for the client to provide text, so placeholders for now.`),
-                createFolder('isabella-stack', 'Project stack', [
-                    htmlIcon,
-                    cssIcon,
-                    jsIcon,
-                    viteIcon,
-                ])
-            ])
         ]),
 
         createImageFile('resume_en', 'Resume (EN)', 'resume-en.jpg'),
