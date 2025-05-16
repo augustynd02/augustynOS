@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 
+
 type Position = {
     x: number;
     y: number;
@@ -12,7 +13,14 @@ type Dimensions = {
 
 type Direction = "up" | "right" | "down" | "left" | "ne" | "se" | "sw" | "nw";
 
-function useWindowResize({ position, setPosition, dimensions, setDimensions }: { position: Position, setPosition: (position: Position) => void, dimensions: Dimensions, setDimensions: (dimensions: Dimensions) => void }) {
+type WindowResizeProps = {
+    position: Position;
+    setPosition: (position: Position) => void;
+    dimensions: Dimensions;
+    setDimensions: (dimensions: Dimensions) => void
+}
+
+function useWindowResize({ position, setPosition, dimensions, setDimensions }: WindowResizeProps) {
     const [resizingDirection, setResizingDirection] = useState<Direction | null>(null);
     const [isResizing, setIsResizing] = useState(false);
     const [initialPosition, setInitialPosition] = useState<Position>({ x: 0, y: 0 });
