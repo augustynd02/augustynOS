@@ -26,9 +26,14 @@ type Position = {
     y: number;
 };
 
+type WindowProps = {
+    app: Application;
+    theme?: 'light' | 'dark' | undefined;
+}
+
 const directions = ["up", "right", "down", "left", "ne", "se", "sw", "nw"];
 
-function Window({ app, theme = 'dark' }: { app: Application, theme?: 'light' | 'dark' | undefined }) {
+function Window({ app, theme = 'dark' }: WindowProps) {
     const [dimensions, setDimensions] = useState({ width: 500, height: 500 });
     const [position, setPosition] = useState<Position>(
         window // If in browser, calculate the center: if not (for example in testing), set default to x: 0, y: 0
