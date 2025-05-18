@@ -20,8 +20,13 @@ type Dimensions = {
     height: number;
 }
 
+type ActionProps = {
+    actions: Action[];
+    position?: Position;
+    isSubModal?: boolean;
+}
 
-function ActionsModal({ actions, position, isSubModal = false }: { actions: Action[], position?: Position, isSubModal?: boolean }) {
+function ActionsModal({ actions, position, isSubModal = false }: ActionProps) {
     const modalRef = useRef<HTMLDivElement>(null);
     const [modalHeight, setModalHeight] = useState(0);
 
