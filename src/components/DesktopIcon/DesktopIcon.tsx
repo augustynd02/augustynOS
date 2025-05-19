@@ -9,17 +9,19 @@ interface IconPosition {
     gridColumn: number;
 }
 
+type DesktopIconProps = {
+    file: File,
+    index?: number,
+    position?: IconPosition,
+    onSwapPositions?: (draggedIndex: number, newPosition: IconPosition) => void
+}
+
 function DesktopIcon({
     file,
     index = 0,
     position,
     onSwapPositions
-}: {
-    file: File,
-    index?: number,
-    position?: IconPosition,
-    onSwapPositions?: (draggedIndex: number, newPosition: IconPosition) => void
-}) {
+}: DesktopIconProps) {
     const { startApp } = useContext(AppContext);
 
     const handleDoubleClick = () => {
