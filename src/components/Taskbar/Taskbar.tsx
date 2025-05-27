@@ -7,13 +7,7 @@ import { Application } from '../../types/Application';
 import ActionsContext from "../../contexts/Actions/ActionsContext";
 import { IoIosMenu, IoIosPower } from 'react-icons/io';
 import { FaUserCircle } from 'react-icons/fa';
-
-type Action = {
-    name: string;
-    cb: () => void;
-    iconURL?: string;
-    options?: Action[];
-}
+import { Action } from "../../types/Action";
 
 function Taskbar() {
     const { openApps, toggleMinimize } = useContext(AppContext);
