@@ -1,15 +1,9 @@
 import { createContext } from 'react';
+import { Action } from '../../types/Action';
 
 type Position = {
     x: number;
     y: number;
-};
-
-type Action = {
-    name: string;
-    cb: () => void;
-    iconURL?: string;
-    options?: Action[];
 };
 
 interface ActionsContextType {
