@@ -27,6 +27,17 @@ const actions: Action[] = [
             }
         ]
     },
+    {
+        name: "New",
+        options: [
+            {
+                name: "Text file"
+            },
+            {
+                name: "Folder"
+            }
+        ]
+    }
 ]
 
 interface IconPosition {
