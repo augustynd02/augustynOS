@@ -2,13 +2,7 @@ import styles from './ActionsModal.module.scss';
 import { useState, useRef, useEffect } from 'react';
 
 import { FaChevronRight } from "react-icons/fa6";
-
-type Action = {
-    name: string;
-    cb: () => void;
-    iconURL?: string;
-    options?: Action[];
-}
+import { Action } from '../../types/Action';
 
 type Position = {
     x: number;
