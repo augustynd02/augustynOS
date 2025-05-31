@@ -20,11 +20,7 @@ import isTextFile from '../../utils/isTextFile';
 import isImageFile from '../../utils/isImageFile';
 import isBrowserFile from '../../utils/isBrowserFile';
 import ImageFile from '../ImageFile/ImageFile';
-
-type Position = {
-    x: number;
-    y: number;
-};
+import { Position } from '../../types/Position';
 
 type WindowProps = {
     app: Application;

@@ -1,11 +1,7 @@
 import { useState } from 'react';
 import ActionsContext from './ActionsContext';
 import { Action } from '../../types/Action';
-
-type Position = {
-    x: number;
-    y: number
-};
+import { Position } from '../../types/Position';
 
 export default function ActionsProvider({ children }: { children: React.ReactNode }) {
     const [isModalShown, setIsModalShown] = useState(false);

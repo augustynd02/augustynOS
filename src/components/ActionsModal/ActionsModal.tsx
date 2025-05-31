@@ -3,11 +3,7 @@ import { useState, useRef, useEffect } from 'react';
 
 import { FaChevronRight } from "react-icons/fa6";
 import { Action } from '../../types/Action';
-
-type Position = {
-    x: number;
-    y: number;
-};
+import { Position } from '../../types/Position';
 
 type Dimensions = {
     width: number;

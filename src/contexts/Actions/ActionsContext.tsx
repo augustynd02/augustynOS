@@ -1,10 +1,6 @@
 import { createContext } from 'react';
 import { Action } from '../../types/Action';
-
-type Position = {
-    x: number;
-    y: number;
-};
+import { Position } from '../../types/Position';
 
 interface ActionsContextType {
     handleOpenModal: (e: React.MouseEvent, newActions: Action[]) => void;

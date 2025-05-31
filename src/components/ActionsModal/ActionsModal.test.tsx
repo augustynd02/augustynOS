@@ -1,11 +1,7 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import ActionsModal from './ActionsModal';
 import { Action } from '../../types/Action';
-
-type Position = {
-    x: number;
-    y: number;
-}
+import { Position } from '../../types/Position';
 
 describe('ActionsModal', () => {
     const mockAction = (name: string): Action => {

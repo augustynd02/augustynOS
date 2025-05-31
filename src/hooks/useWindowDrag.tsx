@@ -1,9 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
-
-type Position = {
-    x: number;
-    y: number;
-};
+import { Position } from '../types/Position';
 
 type WindowDragProps = {
     position: Position;
