@@ -5,6 +5,7 @@ import FileSystemContext from '../../contexts/FileSystem/FileSystemContext';
 import AppContext from '../../contexts/App/AppContext';
 
 function Notepad({ file }: { file: TextFile }) {
+    console.log('render');
     const [content, setContent] = useState<string>(file.content);
     const [fileMenuOpen, setFileMenuOpen] = useState<boolean>(false);
     const originalFileName = file.name.startsWith('* ') ? file.name.slice(2) : file.name;
@@ -18,9 +19,8 @@ function Notepad({ file }: { file: TextFile }) {
     useEffect(() => {
         const hasChanged = content !== file.content;
         const expectedName = hasChanged ? `* ${originalFileName}` : originalFileName;
-
         editAppName(file.id, expectedName);
-    }, [content, file.content, file.id, originalFileName, editAppName]);
+    }, [content]);
 
     const handleTextareaChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
         setContent(e.target.value);
