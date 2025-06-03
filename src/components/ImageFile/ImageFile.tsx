@@ -7,7 +7,7 @@ export default function ImageFile({ file }: { file: ImageFileType }) {
     const [scale, setScale] = useState(1);
 
     const handleZoomIn = () => {
-        setScale(prevScale => prevScale + 0.2);
+        setScale(prevScale => Math.min(3, prevScale + 0.2));
     };
 
     const handleZoomOut = () => {
