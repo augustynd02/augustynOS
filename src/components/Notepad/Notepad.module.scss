@@ -20,6 +20,7 @@
             position: relative;
 
             span {
+                display: inline-block;
                 height: 100%;
                 user-select: none;
 
@@ -33,8 +34,11 @@
                     outline: 1px solid rgba(140, 206, 245, 0.675);
                 }
 
-                &:first-letter {
+                &::first-letter {
                     text-decoration: underline;
+                    text-underline-offset: 1.5px;
+                    color: black;
+                    text-decoration-thickness: 1px;
                 }
             }
         }
