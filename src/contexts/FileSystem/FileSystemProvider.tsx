@@ -1,22 +1,25 @@
 import React, { useState } from "react";
 import FileSystemContext from "./FileSystemContext";
 import { FileSystem } from "../../types/FileSystem";
+import isFolder from "../../utils/isFolder";
 
 import { Folder } from "../../types/Folder";
 import defaultFileSystem from "../../constants/defaultFileSystem";
 
 
-export default function FileSystemProvider({ children } : { children: React.ReactNode}) {
+export default function FileSystemProvider({ children }: { children: React.ReactNode }) {
     const [fileSystem, setFileSystem] = useState<FileSystem>(defaultFileSystem);
 
     const getFolder = (id: string): Folder | undefined => {
-        return fileSystem.children.find((item) => item.id === id) as Folder;
+        const item = fileSystem.children.find((item) => item.id === id);
+        return item && isFolder(item) ? item : undefined;
     };
+
     const updateFileById = (id: string, updateFn: (file: any) => any) => {
         const fsCopy = structuredClone(fileSystem);
 
         const updateFile = (children: any[]): boolean => {
-            for(let i = 0; i < children.length; i++) {
+            for (let i = 0; i < children.length; i++) {
                 const item = children[i];
                 if (item.id === id) {
                     children[i] = updateFn(item);
@@ -37,8 +40,8 @@ export default function FileSystemProvider({ children } : { children: React.Reac
     };
 
     return (
-        <FileSystemContext.Provider value={{fileSystem, setFileSystem, getFolder, updateFileById}}>
-            { children }
+        <FileSystemContext.Provider value={{ fileSystem, setFileSystem, getFolder, updateFileById }}>
+            {children}
         </FileSystemContext.Provider>
     )
 }
