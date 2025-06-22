@@ -36,6 +36,7 @@
 
         opacity: 1;
         transition: opacity 0.1s;
+        user-select: none;
 
         .time {
             font-size: 12em;
@@ -141,6 +142,7 @@
     color: white;
 
     animation: pulse 2s ease-in-out infinite;
+    user-select: none;
 }
 
 @keyframes pulse {
