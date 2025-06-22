@@ -45,12 +45,13 @@ function LoginScreen({ setIsLoginShown }: LoginScreenProps) {
 
     return (
         <div ref={loginRef} className={`${styles.loginScreen} ${loginExpanded ? styles.blur : ''}`} onClick={() => setLoginExpanded(true)}>
+            {!loginExpanded && <p className={styles.hint}>Click to continue...</p> }
             <div className={`${styles.clockContainer} ${loginExpanded ? styles.disappear : ''}`}>
                 <div className={styles.time}>{formatTime(currentTime)}</div>
                 <div className={styles.date}>{formatDate(currentTime)}</div>
             </div>
 
-            { loginExpanded && (
+            {loginExpanded && (
                 <div className={styles.profileContainer}>
                     <div className={styles.avatar}>
                         <img src='./profile-picture.jpg' alt='Profile picture' />
