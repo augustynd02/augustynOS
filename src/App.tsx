@@ -1,6 +1,7 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import Desktop from "./components/Desktop/Desktop";
 import Taskbar from "./components/Taskbar/Taskbar";
+import LoginScreen from "./components/LoginScreen/LoginScreen";
 
 import styles from './app.module.scss';
 import './styles/main.scss';
@@ -15,12 +16,14 @@ import FileSystemProvider from "./contexts/FileSystem/FileSystemProvider";
 // Separated content to access context
 function AppContent() {
   const { handleCloseModal, modalPosition, isModalShown, actions } = useContext(ActionsContext);
+  const [isLoginShown, setIsLoginShown] = useState<boolean>(true);
 
   return (
     <main className={styles.app} id="app" data-testid="app" onClick={handleCloseModal}>
       <Desktop/>
       <Taskbar />
       {isModalShown && <ActionsModal actions={actions} position={modalPosition} />}
+      {isLoginShown && <LoginScreen setIsLoginShown={setIsLoginShown} />}
     </main>
   );
 }
