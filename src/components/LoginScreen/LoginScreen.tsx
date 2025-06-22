@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import styles from './LoginScreen.module.scss'
 
 interface LoginScreenProps {
@@ -7,7 +7,32 @@ interface LoginScreenProps {
 
 function LoginScreen({ setIsLoginShown }: LoginScreenProps) {
     const [loginExpanded, setLoginExpanded] = useState(false);
+    const [currentTime, setCurrentTime] = useState(new Date());
     const loginRef = useRef<null | HTMLDivElement>(null);
+
+    useEffect(() => {
+        const timer = setInterval(() => {
+            setCurrentTime(new Date());
+        }, 1000);
+
+        return () => clearInterval(timer);
+    }, []);
+
+    const formatTime = (date: Date) => {
+        return date.toLocaleTimeString('en-US', {
+            hour: '2-digit',
+            minute: '2-digit',
+            hour12: false
+        });
+    };
+
+    const formatDate = (date: Date) => {
+        return date.toLocaleDateString('en-US', {
+            weekday: 'long',
+            month: 'long',
+            day: 'numeric'
+        });
+    };
 
     const handleLogin = () => {
         if (loginRef.current) {
@@ -20,6 +45,11 @@ function LoginScreen({ setIsLoginShown }: LoginScreenProps) {
 
     return (
         <div ref={loginRef} className={`${styles.loginScreen} ${loginExpanded ? styles.blur : ''}`} onClick={() => setLoginExpanded(true)}>
+            <div className={`${styles.clockContainer} ${loginExpanded ? styles.disappear : ''}`}>
+                <div className={styles.time}>{formatTime(currentTime)}</div>
+                <div className={styles.date}>{formatDate(currentTime)}</div>
+            </div>
+
             { loginExpanded && (
                 <div className={styles.profileContainer}>
                     <div className={styles.avatar}>

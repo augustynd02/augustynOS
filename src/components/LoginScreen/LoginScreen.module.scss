@@ -27,6 +27,30 @@
         z-index: 1;
     }
 
+    .clockContainer {
+        position: absolute;
+        bottom: 4rem;
+        left: 2rem;
+        color: rgb(219, 219, 219);
+        text-align: left;
+
+        opacity: 1;
+        transition: opacity 0.1s;
+
+        .time {
+            font-size: 12em;
+            font-weight: 200;
+            line-height: 1;
+            margin-bottom: 0.25rem;
+        }
+
+        .date {
+            font-size: 4em;
+            font-weight: 200;
+            opacity: 0.85;
+        }
+    }
+
     .profileContainer {
         display: flex;
         flex-direction: column;
@@ -104,5 +128,5 @@
 }
 
 .disappear {
-    opacity: 0;
+    opacity: 0 !important;
 }
